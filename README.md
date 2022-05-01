@@ -1,5 +1,12 @@
 # Point System
 
+## 기술 스택
+- Java 11
+- Spring Boot 2.6.7
+- Spring Data JPA
+- H2 Database
+- Junit 5
+
 ## 규칙
 ### 적립
 - 하루 최대 적립금액: 20,000 포인트
