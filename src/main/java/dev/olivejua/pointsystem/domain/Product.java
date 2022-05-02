@@ -12,22 +12,25 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity
-public class User extends BaseTimeEntity {
+public class Product extends BaseTimeEntity {
 
-    @Column(name = "USER_ID")
+    @Column(name = "PRODUCT_ID")
     @Id @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Comment("유저이름")
-    @Column(nullable = false)
+    @Comment("상품명")
+    @Column(unique = true, nullable = false)
     private String name;
 
-    protected User() {}
+    @Comment("상품금액")
+    @Column(nullable = false)
+    private int price;
 
-    public static User create(String name) {
-        User user = new User();
-        user.name = name;
+    public static Product create(String name, int price) {
+        Product product = new Product();
+        product.name = name;
+        product.price = price;
 
-        return user;
+        return product;
     }
 }
