@@ -1,10 +1,13 @@
 package dev.olivejua.pointsystem.domain;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
+@Getter
 @Entity
 public class Post extends BaseTimeEntity {
 
@@ -23,7 +26,7 @@ public class Post extends BaseTimeEntity {
     protected Post() {
     }
 
-    protected static Post create(User author, String title, String content) {
+    public static Post create(User author, String title, String content) {
         Post post = new Post();
         post.author = author;
         post.title = title;

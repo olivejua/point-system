@@ -1,5 +1,7 @@
 package dev.olivejua.pointsystem.domain;
 
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +9,7 @@ import javax.persistence.Id;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity
+@Entity @Getter
 public class User extends BaseTimeEntity {
 
     @Column(name = "USER_ID")
