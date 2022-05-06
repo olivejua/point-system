@@ -1,7 +1,9 @@
 package dev.olivejua.pointsystem.service;
 
-import dev.olivejua.pointsystem.web.dto.PurchaseRequest;
+import dev.olivejua.pointsystem.domain.Products;
+
+import java.util.List;
 
 public interface ProductService {
-    Long purchase(PurchaseRequest request);
+    Products findAll(List<Long> productIds);
 }

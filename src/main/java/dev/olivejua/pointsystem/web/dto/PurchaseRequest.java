@@ -6,4 +6,7 @@ import java.util.List;
 public class PurchaseRequest {
     private List<Long> productIds = new ArrayList<>();
 
+    public List<Long> getProductIds() {
+        return productIds;
+    }
 }
