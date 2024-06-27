@@ -1,4 +1,4 @@
-package dev.olivejua.pointsystem.user.infrastructure;
+package dev.olivejua.pointsystem.user.domain;
 
 public enum UserStatus {
     PENDING,

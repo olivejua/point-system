@@ -9,26 +9,32 @@ import java.time.LocalDateTime;
 
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name = "points")
+@Table(name = "point_accrual_types")
 @Entity
-public class PointEntity {
+public class PointAccrualTypeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false)
+    private String code;
+
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private int amount;
+    private Boolean isPercentage;
 
-    //유저의 현재 사용금액
-    //유저의 적립/사용 내역
+    private Long fixedAmount;
 
-    @Column(nullable = false)
-    private PointStatus status;
+    private Long percentageRate;
+
+    private String description;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime modifiedAt;
 }

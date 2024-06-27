@@ -26,8 +26,7 @@ public class UserEntity {
     private String nickname;
 
     @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private UserStatus status;
+    private String status;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;

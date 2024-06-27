@@ -1,6 +1,6 @@
 package dev.olivejua.pointsystem.review.infrastructure;
 
-import dev.olivejua.pointsystem.payment.infrastructure.OrderEntity;
+import dev.olivejua.pointsystem.order.infrastructure.OrderEntity;
 import dev.olivejua.pointsystem.user.infrastructure.UserEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

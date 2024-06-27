@@ -1,4 +1,4 @@
-package dev.olivejua.pointsystem.payment.infrastructure;
+package dev.olivejua.pointsystem.order.infrastructure;
 
 import dev.olivejua.pointsystem.product.infrastructure.ProductEntity;
 import dev.olivejua.pointsystem.user.infrastructure.UserEntity;
@@ -34,7 +34,7 @@ public class OrderEntity {
     private int amount;
 
     @Column(nullable = false)
-    private OrderStatus status;
+    private String status;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;

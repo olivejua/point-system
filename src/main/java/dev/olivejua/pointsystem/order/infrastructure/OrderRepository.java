@@ -1,4 +1,4 @@
-package dev.olivejua.pointsystem.payment.infrastructure;
+package dev.olivejua.pointsystem.order.infrastructure;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
