@@ -1,7 +1,7 @@
 package dev.olivejua.pointsystem.service;
 
 import dev.olivejua.pointsystem.ApplicationTests;
-import dev.olivejua.pointsystem.domain.User;
+import dev.olivejua.pointsystem.domain.UserEntity;
 import dev.olivejua.pointsystem.repository.UserRepository;
 import dev.olivejua.pointsystem.web.dto.JoinRequest;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserServiceTests extends ApplicationTests {
+public class UserEntityServiceTests extends ApplicationTests {
     @Autowired
     private UserService userService;
 
@@ -26,7 +26,7 @@ public class UserServiceTests extends ApplicationTests {
 
         clearContext();
 
-        Optional<User> optionalUser = userRepository.findById(savedUserId);
+        Optional<UserEntity> optionalUser = userRepository.findById(savedUserId);
         assertThat(optionalUser).isPresent();
     }
 }

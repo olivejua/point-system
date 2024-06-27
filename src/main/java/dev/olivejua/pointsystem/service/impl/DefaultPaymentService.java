@@ -1,8 +1,8 @@
 package dev.olivejua.pointsystem.service.impl;
 
-import dev.olivejua.pointsystem.domain.Payment;
+import dev.olivejua.pointsystem.domain.PaymentEntity;
 import dev.olivejua.pointsystem.domain.Products;
-import dev.olivejua.pointsystem.domain.User;
+import dev.olivejua.pointsystem.domain.UserEntity;
 import dev.olivejua.pointsystem.repository.PaymentRepository;
 import dev.olivejua.pointsystem.service.PaymentService;
 import dev.olivejua.pointsystem.service.ProductService;
@@ -18,13 +18,13 @@ public class DefaultPaymentService implements PaymentService {
     private final ProductService productService;
 
     @Override
-    public Long purchase(PurchaseRequest request, User buyer) {
+    public Long purchase(PurchaseRequest request, UserEntity buyer) {
         Products products = productService.findAll(request.getProductIds());
 
-        Payment payment = Payment.create(buyer, products);
-        paymentRepository.save(payment);
+        PaymentEntity paymentEntity = PaymentEntity.create(buyer, products);
+        paymentRepository.save(paymentEntity);
 
-        return payment.getId();
+        return paymentEntity.getId();
     }
 
 

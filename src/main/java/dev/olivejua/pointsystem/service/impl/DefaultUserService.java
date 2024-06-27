@@ -1,6 +1,6 @@
 package dev.olivejua.pointsystem.service.impl;
 
-import dev.olivejua.pointsystem.domain.User;
+import dev.olivejua.pointsystem.domain.UserEntity;
 import dev.olivejua.pointsystem.exception.AlreadyExistsUsernameException;
 import dev.olivejua.pointsystem.repository.UserRepository;
 import dev.olivejua.pointsystem.service.UserService;
@@ -17,7 +17,7 @@ public class DefaultUserService implements UserService {
     public Long join(JoinRequest request) {
         validate(request.getName());
 
-        User user = User.create(request.getName());
+        UserEntity user = UserEntity.create(request.getName());
         userRepository.save(user);
 
         return user.getId();

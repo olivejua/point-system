@@ -10,24 +10,24 @@ import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
 public class Products {
-    private final List<Product> content = new ArrayList<>();
+    private final List<ProductEntity> content = new ArrayList<>();
 
-    public static Products create(List<Product> addedList) {
+    public static Products create(List<ProductEntity> addedList) {
         Products products = new Products();
         products.addAll(addedList);
         return products;
     }
 
-    private void addAll(List<Product> products) {
-        validate(products);
+    private void addAll(List<ProductEntity> productEntities) {
+        validate(productEntities);
 
-        content.addAll(products);
+        content.addAll(productEntities);
 
         removeNull();
     }
 
-    private void validate(List<Product> products) {
-        if (products==null) {
+    private void validate(List<ProductEntity> productEntities) {
+        if (productEntities ==null) {
             throw new NullPointerException();
         }
     }
@@ -38,7 +38,7 @@ public class Products {
 
     public int totalPrice() {
         return content.stream()
-                .map(Product::getPrice)
+                .map(ProductEntity::getPrice)
                 .reduce(0, Integer::sum);
     }
 }
