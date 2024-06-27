@@ -1,21 +1,16 @@
 package dev.olivejua.pointsystem.domain;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.Comment;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity
 public class Product extends BaseTimeEntity {
 
     @Column(name = "PRODUCT_ID")
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Comment("상품명")

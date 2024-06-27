@@ -1,21 +1,17 @@
 package dev.olivejua.pointsystem.domain;
 
+import jakarta.persistence.*;
 import lombok.Getter;
-
-import javax.persistence.*;
-
-import static javax.persistence.FetchType.LAZY;
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity
 public class Post extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User author;
 

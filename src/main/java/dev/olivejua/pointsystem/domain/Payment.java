@@ -1,19 +1,19 @@
 package dev.olivejua.pointsystem.domain;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.Comment;
 
-import javax.persistence.*;
-
-import static javax.persistence.FetchType.LAZY;
-import static javax.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter
 @Entity
 public class Payment extends BaseTimeEntity {
 
     @Column(name = "PAYMENT_ID")
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Comment("구매자")
