@@ -25,8 +25,7 @@ public class UserServiceTest {
 
     @BeforeEach
     void setUp() {
-        fakeUserRepository = FakeUserRepository.builder()
-                .build();
+        fakeUserRepository = new FakeUserRepository();
         userService = UserService.builder()
                 .userRepository(fakeUserRepository)
                 .dateTimeHolder(new TestDateTimeHolder(now))
@@ -86,7 +85,7 @@ public class UserServiceTest {
                 .build());
 
         //when
-        User result = userService.getMyInfo(1);
+        User result = userService.getById(1);
 
         //then
         assertThat(result).isNotNull();
@@ -113,7 +112,7 @@ public class UserServiceTest {
 
         //when
         //then
-        assertThatThrownBy(() -> userService.getMyInfo(2))
+        assertThatThrownBy(() -> userService.getById(2))
                 .isInstanceOf(NotFoundResourceException.class)
                 .hasMessage("User을(를) 찾을 수 없습니다.");
     }
