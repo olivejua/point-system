@@ -34,4 +34,6 @@ public class UserEntity {
     @Column(nullable = false)
     private LocalDateTime modifiedAt;
 
+    private LocalDateTime lastLoginAt;
+
 }
