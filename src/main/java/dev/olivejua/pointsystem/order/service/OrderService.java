@@ -18,6 +18,11 @@ public class OrderService {
     private final UserService userService;
     private final DateTimeHolder dateTimeHolder;
 
+    public Order getById(long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundResourceException("Order"));
+    }
+
     public Order order(OrderCreate orderCreate) {
         Product product = productService.getById(orderCreate.getProductId());
         User buyer = userService.getById(orderCreate.getBuyerId());
@@ -55,4 +60,5 @@ public class OrderService {
 
         return orderRepository.save(order);
     }
+
 }

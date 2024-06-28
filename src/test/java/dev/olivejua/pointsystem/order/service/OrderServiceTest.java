@@ -70,6 +70,16 @@ public class OrderServiceTest {
     }
 
     @Test
+    void getById로_주문정보를_조회할_수_있다() {
+        //given
+        //when
+        Order order = orderService.getById(1);
+
+        //then
+        assertThat(order).isNotNull();
+    }
+
+    @Test
     void orderCreate로_주문객체를_저장할_수_있다() {
         //given
         OrderCreate orderCreate = new OrderCreate(1, 1, 0);
