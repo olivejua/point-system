@@ -20,12 +20,12 @@ public class Order {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    public static Order of(Product product, User buyer, DateTimeHolder dateTimeHolder) {
+    public static Order from(OrderCreate orderCreate, DateTimeHolder dateTimeHolder) {
         LocalDateTime now = dateTimeHolder.now();
         return Order.builder()
-                .buyer(buyer)
-                .product(product)
-                .amount(product.getPrice())
+                .buyer(orderCreate.getBuyer())
+                .product(orderCreate.getProduct())
+                .amount(orderCreate.getProduct().getPrice())
                 .status(OrderStatus.ORDERED)
                 .createdAt(now)
                 .modifiedAt(now)

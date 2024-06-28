@@ -35,7 +35,11 @@ public class OrderTest {
 
         //when
         LocalDateTime now = LocalDateTime.now();
-        Order order = Order.of(product, buyer, new TestDateTimeHolder(now));
+        OrderCreate orderCreate = OrderCreate.builder()
+                .product(product)
+                .buyer(buyer)
+                .build();
+        Order order = Order.from(orderCreate, new TestDateTimeHolder(now));
 
         //then
         assertThat(order.getBuyer()).isEqualTo(buyer);

@@ -82,7 +82,23 @@ public class OrderServiceTest {
     @Test
     void orderCreate로_주문객체를_저장할_수_있다() {
         //given
-        OrderCreate orderCreate = new OrderCreate(1, 1, 0);
+        OrderCreate orderCreate = OrderCreate.builder()
+                .buyer(User.builder()
+                        .id(1L)
+                        .email("tmfrl4710@gmail.com")
+                        .nickname("olivejua")
+                        .status(UserStatus.ACTIVE)
+                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .build())
+                .product(Product.builder()
+                        .id(1L)
+                        .name("자바의 신")
+                        .price(20_000)
+                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .build())
+                .points(1_000)
+                .build();
 
         //when
         Order order = orderService.order(orderCreate);

@@ -5,9 +5,7 @@ import dev.olivejua.pointsystem.common.service.DateTimeHolder;
 import dev.olivejua.pointsystem.order.domain.Order;
 import dev.olivejua.pointsystem.order.domain.OrderCreate;
 import dev.olivejua.pointsystem.order.service.port.OrderRepository;
-import dev.olivejua.pointsystem.product.domain.Product;
 import dev.olivejua.pointsystem.product.service.ProductService;
-import dev.olivejua.pointsystem.user.domain.User;
 import dev.olivejua.pointsystem.user.service.UserService;
 import lombok.Builder;
 
@@ -24,10 +22,7 @@ public class OrderService {
     }
 
     public Order order(OrderCreate orderCreate) {
-        Product product = productService.getById(orderCreate.getProductId());
-        User buyer = userService.getById(orderCreate.getBuyerId());
-
-        Order order = Order.of(product, buyer, dateTimeHolder);
+        Order order = Order.from(orderCreate, dateTimeHolder);
 
         if (orderCreate.hasPointsRedeemed()) {
 //            Points myPoints = pointService.redeem(buyer.getId(), orderCreate.getPoints());
