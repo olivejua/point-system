@@ -35,7 +35,11 @@ public class OrderTest {
 
         //when
         LocalDateTime now = LocalDateTime.now();
-        Order order = Order.of(product, buyer, new TestDateTimeHolder(now));
+        OrderCreate orderCreate = OrderCreate.builder()
+                .product(product)
+                .buyer(buyer)
+                .build();
+        Order order = Order.from(orderCreate, new TestDateTimeHolder(now));
 
         //then
         assertThat(order.getBuyer()).isEqualTo(buyer);
@@ -140,7 +144,7 @@ public class OrderTest {
         order = order.cancel(new TestDateTimeHolder(now));
 
         //then
-        assertThat(order.getStatus()).isEqualTo(OrderStatus.CANCELLED);
+        assertThat(order.getStatus()).isEqualTo(OrderStatus.CANCELED);
         assertThat(order.getModifiedAt()).isEqualTo(now);
     }
 
@@ -166,7 +170,7 @@ public class OrderTest {
                 .amount(10_000)
                 .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                 .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .status(OrderStatus.CANCELLED)
+                .status(OrderStatus.CANCELED)
                 .build();
 
         //when

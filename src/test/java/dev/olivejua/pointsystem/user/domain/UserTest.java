@@ -160,4 +160,56 @@ public class UserTest {
                 .isInstanceOf(InvalidAttributeFormatException.class)
                 .hasMessage("유저의 이메일 또는 닉네임이(가) 비어있거나 잘못된 형식입니다.");
     }
+
+    @Test
+    void isSameAs로_동일유저라면_true를_반환한다() {
+        //given
+        User user1 = User.builder()
+                .id(1L)
+                .email("tmfrl4710@gmail.com")
+                .nickname("olivejua")
+                .status(UserStatus.ACTIVE)
+                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .build();
+
+        User user2 = User.builder()
+                .id(1L)
+                .email("tmfrl4710@gmail.com")
+                .nickname("olivejua")
+                .status(UserStatus.ACTIVE)
+                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .build();
+
+        //when
+        //then
+        assertThat(user1.isSameAs(user2)).isTrue();
+    }
+
+    @Test
+    void isSameAs로_동일유저가_아니라면_false를_반환한다() {
+        //given
+        User user1 = User.builder()
+                .id(1L)
+                .email("tmfrl4710@gmail.com")
+                .nickname("olivejua")
+                .status(UserStatus.ACTIVE)
+                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .build();
+
+        User user2 = User.builder()
+                .id(2L)
+                .email("tmfrl4710@naver.com")
+                .nickname("seulki")
+                .status(UserStatus.ACTIVE)
+                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .build();
+
+        //when
+        //then
+        assertThat(user1.isSameAs(user2)).isFalse();
+    }
 }

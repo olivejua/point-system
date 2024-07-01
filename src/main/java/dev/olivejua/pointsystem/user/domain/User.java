@@ -65,4 +65,8 @@ public class User {
                 .lastLoginAt(lastLoginAt)
                 .build();
     }
+
+    public boolean isSameAs(User user) {
+        return id != null && id.equals(user.id);
+    }
 }

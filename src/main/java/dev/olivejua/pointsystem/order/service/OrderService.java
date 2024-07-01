@@ -5,24 +5,20 @@ import dev.olivejua.pointsystem.common.service.DateTimeHolder;
 import dev.olivejua.pointsystem.order.domain.Order;
 import dev.olivejua.pointsystem.order.domain.OrderCreate;
 import dev.olivejua.pointsystem.order.service.port.OrderRepository;
-import dev.olivejua.pointsystem.product.domain.Product;
-import dev.olivejua.pointsystem.product.service.ProductService;
-import dev.olivejua.pointsystem.user.domain.User;
-import dev.olivejua.pointsystem.user.service.UserService;
 import lombok.Builder;
 
 @Builder
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final ProductService productService;
-    private final UserService userService;
     private final DateTimeHolder dateTimeHolder;
 
-    public Order order(OrderCreate orderCreate) {
-        Product product = productService.getById(orderCreate.getProductId());
-        User buyer = userService.getById(orderCreate.getBuyerId());
+    public Order getById(long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundResourceException("Order"));
+    }
 
-        Order order = Order.of(product, buyer, dateTimeHolder);
+    public Order order(OrderCreate orderCreate) {
+        Order order = Order.from(orderCreate, dateTimeHolder);
 
         if (orderCreate.hasPointsRedeemed()) {
 //            Points myPoints = pointService.redeem(buyer.getId(), orderCreate.getPoints());
@@ -55,4 +51,5 @@ public class OrderService {
 
         return orderRepository.save(order);
     }
+
 }

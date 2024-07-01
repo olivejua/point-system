@@ -20,12 +20,12 @@ public class Order {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    public static Order of(Product product, User buyer, DateTimeHolder dateTimeHolder) {
+    public static Order from(OrderCreate orderCreate, DateTimeHolder dateTimeHolder) {
         LocalDateTime now = dateTimeHolder.now();
         return Order.builder()
-                .buyer(buyer)
-                .product(product)
-                .amount(product.getPrice())
+                .buyer(orderCreate.getBuyer())
+                .product(orderCreate.getProduct())
+                .amount(orderCreate.getProduct().getPrice())
                 .status(OrderStatus.ORDERED)
                 .createdAt(now)
                 .modifiedAt(now)
@@ -36,8 +36,12 @@ public class Order {
         return buyer.getId() == userId;
     }
 
+    public boolean isCanceled() {
+        return status == OrderStatus.CANCELED;
+    }
+
     public Order cancel(DateTimeHolder dateTimeHolder) {
-        if (status == OrderStatus.CANCELLED) {
+        if (status == OrderStatus.CANCELED) {
             throw new IllegalStatusException("이미 주문취소 상태입니다.");
         }
 
@@ -45,7 +49,7 @@ public class Order {
                 .buyer(buyer)
                 .product(product)
                 .amount(product.getPrice())
-                .status(OrderStatus.CANCELLED)
+                .status(OrderStatus.CANCELED)
                 .createdAt(createdAt)
                 .modifiedAt(dateTimeHolder.now())
                 .build();
