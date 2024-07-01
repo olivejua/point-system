@@ -4,7 +4,7 @@ import dev.olivejua.pointsystem.common.exception.IllegalStatusException;
 import dev.olivejua.pointsystem.common.exception.InvalidAttributeFormatException;
 import dev.olivejua.pointsystem.common.service.DateTimeHolder;
 import dev.olivejua.pointsystem.order.domain.Order;
-import dev.olivejua.pointsystem.order.service.BuyerDoesNotMatchException;
+import dev.olivejua.pointsystem.common.exception.BuyerDoesNotMatchException;
 import dev.olivejua.pointsystem.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,5 +1,6 @@
 package dev.olivejua.pointsystem.order.service;
 
+import dev.olivejua.pointsystem.common.exception.BuyerDoesNotMatchException;
 import dev.olivejua.pointsystem.common.exception.NotFoundResourceException;
 import dev.olivejua.pointsystem.mock.FakeOrderRepository;
 import dev.olivejua.pointsystem.mock.TestDateTimeHolder;

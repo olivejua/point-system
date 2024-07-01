@@ -1,4 +1,4 @@
-package dev.olivejua.pointsystem.order.service;
+package dev.olivejua.pointsystem.common.exception;
 
 public class BuyerDoesNotMatchException extends RuntimeException {
 
