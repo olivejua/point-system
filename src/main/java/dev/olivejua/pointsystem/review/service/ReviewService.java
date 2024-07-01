@@ -17,8 +17,6 @@ public class ReviewService {
             throw new ReviewAlreadyExistsException();
         }
 
-        //TODO 포인트 적립
-
         Review review = Review.from(reviewWrite, dateTimeHolder);
         return reviewRepository.save(review);
     }

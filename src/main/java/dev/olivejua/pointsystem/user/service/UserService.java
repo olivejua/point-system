@@ -30,14 +30,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void login(String email) {
+    public User login(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundResourceException("User"));
 
         user = user.login(dateTimeHolder);
         userRepository.save(user);
 
-        //TODO 출석체크 적립 대상이면 적립한다
+        return user;
     }
 
     public User update(long id, UserUpdate userUpdate) {
