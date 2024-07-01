@@ -1,7 +1,6 @@
 package dev.olivejua.pointsystem.point.service;
 
 import dev.olivejua.pointsystem.common.service.ClockHolder;
-import dev.olivejua.pointsystem.common.service.DateTimeHolder;
 import dev.olivejua.pointsystem.point.domain.PointTransaction;
 import dev.olivejua.pointsystem.point.domain.UserPoint;
 import dev.olivejua.pointsystem.point.service.dto.AbstractAccrualBonus;
@@ -14,7 +13,6 @@ import lombok.Builder;
 public class PointService {
     private final PointTransactionRepository pointTransactionRepository;
     private final UserPointRepository userPointRepository;
-    private final DateTimeHolder dateTimeHolder;
     private final ClockHolder clockHolder;
 
     public void accrue(AbstractAccrualBonus accrualBonus) {
@@ -26,9 +24,9 @@ public class PointService {
         pointTransactionRepository.save(pointTransaction);
 
         UserPoint userPoint = userPointRepository.findByUserId(accrualBonus.getUserId())
-                .orElse(UserPoint.initialFrom(accrualBonus.getUser(), dateTimeHolder));
+                .orElse(UserPoint.initialFrom(accrualBonus.getUser(), clockHolder));
 
-        userPoint = userPoint.add(pointTransaction.getAmount(), dateTimeHolder);
+        userPoint = userPoint.add(pointTransaction.getAmount(), clockHolder);
         userPointRepository.save(userPoint);
     }
 }

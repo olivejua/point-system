@@ -157,15 +157,6 @@ public class UserServiceTest {
     }
 
     @Test
-    void 유저_로그인시_출석체크_포인트적립_대상이라면_적립한다() {
-        //given
-
-        //when
-
-        //then
-    }
-
-    @Test
     void UserUpdate로_유저정보를_변경할_수_있다() {
         //given
         User user = fakeUserRepository.save(User.builder()

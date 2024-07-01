@@ -1,11 +1,9 @@
 package dev.olivejua.pointsystem.point.domain;
 
-import dev.olivejua.pointsystem.common.service.DateTimeHolder;
+import dev.olivejua.pointsystem.common.service.ClockHolder;
 import dev.olivejua.pointsystem.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -13,11 +11,11 @@ public class UserPoint {
     private final Long id;
     private final User user;
     private final long amount;
-    private final LocalDateTime createdAt;
-    private final LocalDateTime modifiedAt;
+    private final long createdAt;
+    private final long modifiedAt;
 
-    public static UserPoint initialFrom(User user, DateTimeHolder dateTimeHolder) {
-        LocalDateTime now = dateTimeHolder.now();
+    public static UserPoint initialFrom(User user, ClockHolder clockHolder) {
+        long now = clockHolder.millis();
 
         return UserPoint.builder()
                 .user(user)
@@ -27,12 +25,12 @@ public class UserPoint {
                 .build();
     }
 
-    public UserPoint add(long amount, DateTimeHolder dateTimeHolder) {
+    public UserPoint add(long amount, ClockHolder clockHolder) {
         return UserPoint.builder()
                 .user(user)
                 .amount(this.amount + amount)
                 .createdAt(createdAt)
-                .modifiedAt(dateTimeHolder.now())
+                .modifiedAt(clockHolder.millis())
                 .build();
     }
 }

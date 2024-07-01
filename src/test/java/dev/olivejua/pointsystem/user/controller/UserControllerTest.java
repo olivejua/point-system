@@ -23,7 +23,7 @@ class UserControllerTest {
     private UserController userController;
     private FakeUserPointRepository fakeUserPointRepository;
 
-    private LocalDateTime now = LocalDateTime.now();
+    private long now = Clock.systemDefaultZone().millis();
     private long millis = Clock.systemUTC().millis();
 
     @BeforeEach
@@ -33,15 +33,23 @@ class UserControllerTest {
         userController = UserController.builder()
                 .userService(UserService.builder()
                         .userRepository(new FakeUserRepository())
-                        .dateTimeHolder(new TestDateTimeHolder(now))
+                        .dateTimeHolder(new TestDateTimeHolder(LocalDateTime.now()))
                         .build())
                 .pointService(PointService.builder()
                         .userPointRepository(fakeUserPointRepository)
                         .pointTransactionRepository(new FakePointTransactionRepository())
                         .clockHolder(() -> millis)
-                        .dateTimeHolder(new TestDateTimeHolder(now))
                         .build())
                 .build();
+    }
+
+    @Test
+    void 사용자는_회원가입할_수_있다() {
+        //given
+
+        //when
+
+        //then
     }
 
     @Test
@@ -60,6 +68,15 @@ class UserControllerTest {
         assertThat(userPoint.get().getAmount()).isEqualTo(1_000);
         assertThat(userPoint.get().getCreatedAt()).isEqualTo(now);
         assertThat(userPoint.get().getModifiedAt()).isEqualTo(now);
+    }
+
+    @Test
+    void 사용자는_로그인할_수_있따() {
+        //given
+
+        //when
+
+        //then
     }
 
     @Test
