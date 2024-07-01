@@ -5,15 +5,11 @@ import dev.olivejua.pointsystem.common.service.DateTimeHolder;
 import dev.olivejua.pointsystem.order.domain.Order;
 import dev.olivejua.pointsystem.order.domain.OrderCreate;
 import dev.olivejua.pointsystem.order.service.port.OrderRepository;
-import dev.olivejua.pointsystem.product.service.ProductService;
-import dev.olivejua.pointsystem.user.service.UserService;
 import lombok.Builder;
 
 @Builder
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final ProductService productService;
-    private final UserService userService;
     private final DateTimeHolder dateTimeHolder;
 
     public Order getById(long id) {

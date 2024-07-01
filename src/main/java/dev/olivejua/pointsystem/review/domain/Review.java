@@ -1,14 +1,17 @@
 package dev.olivejua.pointsystem.review.domain;
 
+import dev.olivejua.pointsystem.common.exception.IllegalStatusException;
 import dev.olivejua.pointsystem.common.exception.InvalidAttributeFormatException;
 import dev.olivejua.pointsystem.common.service.DateTimeHolder;
 import dev.olivejua.pointsystem.order.domain.Order;
 import dev.olivejua.pointsystem.order.service.BuyerDoesNotMatchException;
 import dev.olivejua.pointsystem.user.domain.User;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 @Builder
 public class Review {
     private Long id;
@@ -26,6 +29,10 @@ public class Review {
 
         if (reviewWrite.hasInvalidTitleOrContent()) {
             throw new InvalidAttributeFormatException("리뷰의 제목 또는 내용");
+        }
+
+        if (reviewWrite.hasOrderWithCancellation()) {
+            throw new IllegalStatusException("취소상태의 주문에 리뷰를 작성할 수 없습니다.");
         }
 
         LocalDateTime now = dateTimeHolder.now();

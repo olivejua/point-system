@@ -2,17 +2,13 @@ package dev.olivejua.pointsystem.order.service;
 
 import dev.olivejua.pointsystem.common.exception.NotFoundResourceException;
 import dev.olivejua.pointsystem.mock.FakeOrderRepository;
-import dev.olivejua.pointsystem.mock.FakeProductRepository;
-import dev.olivejua.pointsystem.mock.FakeUserRepository;
 import dev.olivejua.pointsystem.mock.TestDateTimeHolder;
 import dev.olivejua.pointsystem.order.domain.Order;
 import dev.olivejua.pointsystem.order.domain.OrderCreate;
 import dev.olivejua.pointsystem.order.domain.OrderStatus;
 import dev.olivejua.pointsystem.product.domain.Product;
-import dev.olivejua.pointsystem.product.service.ProductService;
 import dev.olivejua.pointsystem.user.domain.User;
 import dev.olivejua.pointsystem.user.domain.UserStatus;
-import dev.olivejua.pointsystem.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,35 +27,26 @@ public class OrderServiceTest {
 
     @BeforeEach
     void setUp() {
-        FakeUserRepository userRepository = new FakeUserRepository();
-        FakeProductRepository productRepository = new FakeProductRepository();
-
         //ProductService, UserService의 의존성이 많아지면 인터페이스 분리하기
         orderService = OrderService.builder()
                 .orderRepository(orderRepository)
-                .productService(ProductService.builder()
-                        .productRepository(productRepository)
-                        .build())
-                .userService(UserService.builder()
-                        .userRepository(userRepository)
-                        .build())
                 .dateTimeHolder(new TestDateTimeHolder(now))
                 .build();
 
-        User buyer = userRepository.save(User.builder()
+        User buyer = User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
                 .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                 .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .build());
-        Product product = productRepository.save(Product.builder()
+                .build();
+        Product product = Product.builder()
                 .id(1L)
                 .name("자바의 신")
                 .price(20_000)
                 .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .build());
+                .build();
         orderRepository.save(Order.builder()
                 .buyer(buyer)
                 .product(product)

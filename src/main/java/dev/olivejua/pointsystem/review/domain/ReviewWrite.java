@@ -35,4 +35,8 @@ public class ReviewWrite {
         return StringUtil.isNullOrBlank(title) ||
                 StringUtil.isNullOrBlank(content);
     }
+
+    public boolean hasOrderWithCancellation() {
+        return order.isCanceled();
+    }
 }
