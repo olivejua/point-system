@@ -1,9 +1,8 @@
-package dev.olivejua.pointsystem.point.service.dto;
+package dev.olivejua.pointsystem.point.domain.accrualbonus;
 
 import dev.olivejua.pointsystem.common.util.ClockUtil;
 import dev.olivejua.pointsystem.order.domain.Order;
 import dev.olivejua.pointsystem.order.domain.OrderStatus;
-import dev.olivejua.pointsystem.point.domain.accrualbonus.OrderBonus;
 import dev.olivejua.pointsystem.product.domain.Product;
 import dev.olivejua.pointsystem.user.domain.User;
 import dev.olivejua.pointsystem.user.domain.UserStatus;
