@@ -26,6 +26,10 @@ public class UserPoint {
     }
 
     public UserPoint add(long amount, ClockHolder clockHolder) {
+        if (amount == 0) {
+            return this;
+        }
+
         return UserPoint.builder()
                 .user(user)
                 .amount(this.amount + amount)
