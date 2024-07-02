@@ -1,5 +1,6 @@
 package dev.olivejua.pointsystem.user.controller;
 
+import dev.olivejua.pointsystem.common.service.ClockHolder;
 import dev.olivejua.pointsystem.point.service.dto.AttendanceBonus;
 import dev.olivejua.pointsystem.point.service.dto.JoinBonus;
 import dev.olivejua.pointsystem.point.service.PointService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 public class UserController {
     private final UserService userService;
     private final PointService pointService;
+    private final ClockHolder clockHolder;
 
     public ResponseEntity<User> join(UserCreate userCreate) {
         User user = userService.join(userCreate);
@@ -23,7 +25,7 @@ public class UserController {
 
     public ResponseEntity<Void> login(String email) {
         User user = userService.login(email);
-        pointService.accrue(new AttendanceBonus(user));
+        pointService.accrue(new AttendanceBonus(user, clockHolder));
 
         return ResponseEntity.ok()
                 .build();

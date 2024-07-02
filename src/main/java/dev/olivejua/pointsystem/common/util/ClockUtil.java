@@ -4,7 +4,7 @@ import java.time.*;
 
 public class ClockUtil {
 
-    public static long millisFrom(LocalDateTime localDateTime) {
+    public static long toMillis(LocalDateTime localDateTime) {
         ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneOffset.UTC);
         Instant instant = zonedDateTime.toInstant();
         return instant.toEpochMilli();

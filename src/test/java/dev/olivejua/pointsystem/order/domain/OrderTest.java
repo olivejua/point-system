@@ -19,7 +19,7 @@ public class OrderTest {
     @Test
     void Product과_User로_객체를_생성할_수_있다() {
         //given
-        long createdDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
+        long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
 
         Product product = Product.builder()
                 .id(1L)
@@ -54,7 +54,7 @@ public class OrderTest {
     @Test
     void hasSameBuyerAs로_구매자와_취소_요청자와_다른_유저아이디라면_false를_반환한다() {
         //given
-        long createdDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
+        long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
                 .buyer(User.builder()
@@ -87,7 +87,7 @@ public class OrderTest {
     @Test
     void hasSameBuyerAs로_구매자와_취소_요청자와_동일한_유저아이디라면_true를_반환한다() {
         //given
-        long createdDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
+        long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
                 .buyer(User.builder()
@@ -119,7 +119,7 @@ public class OrderTest {
 
     @Test
     void 주문을_취소할_수_있따() {
-        long createdDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
+        long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
                 .buyer(User.builder()
@@ -154,7 +154,7 @@ public class OrderTest {
     @Test
     void 주문취소요청시_주문이_취소상태이면_예외를_던진다() {
         //given
-        long createdDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
+        long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
                 .buyer(User.builder()

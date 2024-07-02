@@ -22,7 +22,7 @@ public class UserServiceTest {
     private UserService userService;
     private FakeUserRepository fakeUserRepository;
 
-    private long now = ClockUtil.millisFrom(LocalDateTime.now());
+    private long now = ClockUtil.toMillis(LocalDateTime.now());
 
     @BeforeEach
     void setUp() {
@@ -55,7 +55,7 @@ public class UserServiceTest {
     @Test
     void 가입이메일이_이미_존재한다면_예외를_던진다() {
         //given
-        long createDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
+        long createDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         fakeUserRepository.save(User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
@@ -77,7 +77,7 @@ public class UserServiceTest {
     @Test
     void id로_유저정보를_조회할_수_있다() {
         //given
-        long createDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
+        long createDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         User user = fakeUserRepository.save(User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
@@ -109,8 +109,8 @@ public class UserServiceTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
-                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .createdAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build());
 
         //when
@@ -128,8 +128,8 @@ public class UserServiceTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
-                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .createdAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build());
 
         //when
@@ -147,8 +147,8 @@ public class UserServiceTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
-                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .createdAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build());
 
         //when
@@ -167,8 +167,8 @@ public class UserServiceTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
-                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .createdAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build());
 
         UserUpdate userUpdate = new UserUpdate("tmfrl4710@naver.com", "seulki");

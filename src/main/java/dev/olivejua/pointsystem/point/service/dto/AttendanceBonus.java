@@ -1,25 +1,34 @@
 package dev.olivejua.pointsystem.point.service.dto;
 
+import dev.olivejua.pointsystem.common.service.ClockHolder;
+import dev.olivejua.pointsystem.common.util.ClockUtil;
 import dev.olivejua.pointsystem.point.domain.PointAccrualType;
 import dev.olivejua.pointsystem.point.service.port.PointTransactionRepository;
 import dev.olivejua.pointsystem.user.domain.User;
+import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDate;
 
 @Getter
 public class AttendanceBonus extends AbstractAccrualBonus {
     private final long amount = 10;
+    private final ClockHolder clockHolder;
 
-    public AttendanceBonus(User user) {
+    @Builder
+    public AttendanceBonus(User user, ClockHolder clockHolder) {
         super(user, PointAccrualType.ATTENDANCE_BONUS);
+        this.clockHolder = clockHolder;
     }
 
     @Override
     public boolean isEligibleUserForPoints(PointTransactionRepository pointTransactionRepository) {
-//        오늘치 중복해서 받으면 안됨
-//        if (pointTransactionRepository.existsByAccrualTypeAndUserIdAndLocalDate()) {
-//            return false;
-//        }
+        final LocalDate targetDay = ClockUtil.toLocalDate(clockHolder.millis());
 
-        return true;
+        return !pointTransactionRepository.existsByUserIdAndAccrualTypeAndCreatedAtBetween(
+                user.getId(),
+                accrualType,
+                ClockUtil.toMillis(targetDay.atStartOfDay()),
+                ClockUtil.toMillis(targetDay.atTime(23, 59, 59)));
     }
 }

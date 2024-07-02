@@ -39,4 +39,15 @@ public class FakePointTransactionRepository implements PointTransactionRepositor
         return data.stream()
                 .anyMatch(item -> item.getUser().getId().equals(userId) && item.getAccrualType() == accrualType);
     }
+
+    @Override
+    public boolean existsByUserIdAndAccrualTypeAndCreatedAtBetween(Long userId, PointAccrualType accrualType, long startMillis, long endMillis) {
+        return data.stream()
+                .anyMatch(item -> item.getUser().getId().equals(userId)
+                        && item.getAccrualType() == accrualType
+                        && item.getCreatedAt() >= startMillis
+                        && item.getCreatedAt() <= endMillis
+                );
+    }
+
 }

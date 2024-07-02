@@ -31,7 +31,7 @@ class UserControllerTest {
         userController = UserController.builder()
                 .userService(UserService.builder()
                         .userRepository(new FakeUserRepository())
-                        .clockHolder(new TestClockHolder(ClockUtil.millisFrom(LocalDateTime.now())))
+                        .clockHolder(new TestClockHolder(ClockUtil.toMillis(LocalDateTime.now())))
                         .build())
                 .pointService(PointService.builder()
                         .userPointRepository(fakeUserPointRepository)

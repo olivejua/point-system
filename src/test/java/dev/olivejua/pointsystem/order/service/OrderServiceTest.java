@@ -40,8 +40,8 @@ public class OrderServiceTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
-                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .createdAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
         Product product = Product.builder()
                 .id(1L)
@@ -71,7 +71,7 @@ public class OrderServiceTest {
     @Test
     void orderCreate로_주문객체를_저장할_수_있다() {
         //given
-        long createdAt = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
+        long createdAt = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         OrderCreate orderCreate = OrderCreate.builder()
                 .buyer(User.builder()
                         .id(1L)

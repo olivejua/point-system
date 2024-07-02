@@ -25,7 +25,7 @@ class JoinBonusTest {
     @Test
     void 유저의_가입일이_오늘일자와_같고_가입포인트를_받은적이_없다면_true를_반환한다() {
         //given
-        long createdDate = ClockUtil.millisFrom(LocalDate.now().atStartOfDay());
+        long createdDate = ClockUtil.toMillis(LocalDate.now().atStartOfDay());
         User user = User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
@@ -47,7 +47,7 @@ class JoinBonusTest {
     @Test
     void 유저의_가입일이_오늘일자가_아니라면_false를_반환한다() {
         //given
-        long createdDate = ClockUtil.millisFrom(LocalDate.now().minusDays(3).atStartOfDay());
+        long createdDate = ClockUtil.toMillis(LocalDate.now().minusDays(3).atStartOfDay());
         User user = User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
@@ -69,7 +69,7 @@ class JoinBonusTest {
     @Test
     void 유저의_가입_적립내역이_이미_존재하면_false를_반환한다() {
         //given
-        long createdDate = ClockUtil.millisFrom(LocalDate.now().atStartOfDay());
+        long createdDate = ClockUtil.toMillis(LocalDate.now().atStartOfDay());
         User user = User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
