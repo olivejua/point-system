@@ -14,12 +14,9 @@ public class ReviewBonus extends AbstractAccrualBonus {
 
     @Override
     public boolean isEligibleUserForPoints(PointTransactionRepository pointTransactionRepository) {
-//        int count = pointTransactionRepository.countByLocalDateAndUserIdAndAccrualType();
-//        if (DAILY_MAX_COUNT <= count) {
-//            return false;
-//        }
+        long count = pointTransactionRepository.countByLocalDateAndUserIdAndAccrualType(user.getId(), accrualType);
 
-        return true;
+        return count < DAILY_MAX_COUNT;
     }
 
     @Override

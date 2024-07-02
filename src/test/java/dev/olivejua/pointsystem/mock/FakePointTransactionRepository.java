@@ -50,4 +50,11 @@ public class FakePointTransactionRepository implements PointTransactionRepositor
                 );
     }
 
+    @Override
+    public long countByLocalDateAndUserIdAndAccrualType(Long userId, PointAccrualType accrualType) {
+        return data.stream()
+                .filter(item -> item.getUser().getId().equals(userId) && item.getAccrualType() == accrualType)
+                .count();
+    }
+
 }

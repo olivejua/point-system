@@ -216,4 +216,41 @@ public class ReviewTest {
                 .isInstanceOf(IllegalStatusException.class)
                 .hasMessage("취소상태의 주문에 리뷰를 작성할 수 없습니다.");
     }
+
+    @Test
+    void 구매한지_1개월_이상된_주문건의_리뷰작성시_에러를_던진다() {
+        //given
+        LocalDate localDate = LocalDate.now().minusMonths(1).minusDays(1);
+
+        User writer = User.builder()
+                .id(2L)
+                .email("tmfrl4710@naver.com")
+                .nickname("seulki")
+                .status(UserStatus.ACTIVE)
+                .createdAt(ClockUtil.toMillis(localDate.atStartOfDay()))
+                .modifiedAt(ClockUtil.toMillis(localDate.atStartOfDay()))
+                .build();
+
+        Order order = Order.builder()
+                .id(1L)
+                .buyer(writer)
+                .product(Product.builder()
+                        .id(1L)
+                        .name("자바의 신")
+                        .price(20_000)
+                        .createdAt(localDate.atStartOfDay())
+                        .build())
+                .amount(20_000)
+                .createdAt(localDate.atStartOfDay())
+                .modifiedAt(localDate.atStartOfDay())
+                .status(OrderStatus.ORDERED)
+                .build();
+
+        ReviewWrite reviewWrite = new ReviewWrite(order, writer, "Nice Book", "This is very nice!");
+
+        //when
+        //then
+        assertThatThrownBy(() -> Review.from(reviewWrite, LocalDateTime::now))
+                .isInstanceOf(IllegalStateException.class);
+    }
 }

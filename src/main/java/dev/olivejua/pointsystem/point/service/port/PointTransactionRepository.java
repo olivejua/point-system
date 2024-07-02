@@ -10,4 +10,7 @@ public interface PointTransactionRepository {
     boolean existsByUserIdAndAccrualType(Long userId, PointAccrualType accrualType);
 
     boolean existsByUserIdAndAccrualTypeAndCreatedAtBetween(Long userId, PointAccrualType accrualType, long startMillis, long endMillis);
+
+    long countByLocalDateAndUserIdAndAccrualType(Long userId, PointAccrualType accrualType);
+
 }

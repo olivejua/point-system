@@ -1,7 +1,10 @@
 package dev.olivejua.pointsystem.user.controller;
 
 import dev.olivejua.pointsystem.common.util.ClockUtil;
-import dev.olivejua.pointsystem.mock.*;
+import dev.olivejua.pointsystem.mock.FakePointTransactionRepository;
+import dev.olivejua.pointsystem.mock.FakeUserPointRepository;
+import dev.olivejua.pointsystem.mock.FakeUserRepository;
+import dev.olivejua.pointsystem.mock.TestClockHolder;
 import dev.olivejua.pointsystem.point.domain.UserPoint;
 import dev.olivejua.pointsystem.point.service.PointService;
 import dev.olivejua.pointsystem.user.domain.User;

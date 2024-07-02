@@ -1,5 +1,6 @@
 package dev.olivejua.pointsystem.review.domain;
 
+import dev.olivejua.pointsystem.common.service.DateTimeHolder;
 import dev.olivejua.pointsystem.common.util.StringUtil;
 import dev.olivejua.pointsystem.order.domain.Order;
 import dev.olivejua.pointsystem.user.domain.User;
@@ -38,5 +39,9 @@ public class ReviewWrite {
 
     public boolean hasOrderWithCancellation() {
         return order.isCanceled();
+    }
+
+    public boolean hasOrderCreatedBeforeThanAMonth(DateTimeHolder dateTimeHolder) {
+        return order.getCreatedAt().isBefore(dateTimeHolder.now().minusMonths(1));
     }
 }

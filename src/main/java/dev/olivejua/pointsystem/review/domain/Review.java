@@ -35,6 +35,10 @@ public class Review {
             throw new IllegalStatusException("취소상태의 주문에 리뷰를 작성할 수 없습니다.");
         }
 
+        if (reviewWrite.hasOrderCreatedBeforeThanAMonth(dateTimeHolder)) {
+            throw new IllegalStateException("1개월 이전 주문건은 리뷰를 작성할 수 없습니다.");
+        }
+
         LocalDateTime now = dateTimeHolder.now();
         return Review.builder()
                 .order(reviewWrite.getOrder())
