@@ -1,5 +1,6 @@
 package dev.olivejua.pointsystem.point.service.dto;
 
+import dev.olivejua.pointsystem.common.util.ClockUtil;
 import dev.olivejua.pointsystem.mock.FakePointTransactionRepository;
 import dev.olivejua.pointsystem.mock.TestClockHolder;
 import dev.olivejua.pointsystem.point.domain.PointAccrualType;
@@ -81,5 +82,30 @@ class AttendanceBonusTest {
 
         //then
         assertThat(result).isFalse();
+    }
+
+    @Test
+    void 고정금액_10포인트를_적립금액으로_반환한다() {
+        //given
+        long createdDate = ClockUtil.toMillis(LocalDate.now().atStartOfDay());
+        User user = User.builder()
+                .id(1L)
+                .email("tmfrl4710@gmail.com")
+                .nickname("olivejua")
+                .status(UserStatus.ACTIVE)
+                .createdAt(createdDate)
+                .modifiedAt(createdDate)
+                .build();
+
+        AttendanceBonus attendanceBonus = AttendanceBonus.builder()
+                .user(user)
+                .clockHolder(new TestClockHolder(toMillis(LocalDateTime.now())))
+                .build();
+
+        //when
+        long amount = attendanceBonus.getAmount();
+
+        //then
+        assertThat(amount).isEqualTo(10);
     }
 }

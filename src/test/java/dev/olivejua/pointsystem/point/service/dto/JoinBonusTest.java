@@ -95,4 +95,26 @@ class JoinBonusTest {
         //then
         assertThat(result).isFalse();
     }
+
+    @Test
+    void 고정금액_1_000포인트를_적립금액으로_반환한다() {
+        //given
+        long createdDate = ClockUtil.toMillis(LocalDate.now().atStartOfDay());
+        User user = User.builder()
+                .id(1L)
+                .email("tmfrl4710@gmail.com")
+                .nickname("olivejua")
+                .status(UserStatus.ACTIVE)
+                .createdAt(createdDate)
+                .modifiedAt(createdDate)
+                .build();
+
+        JoinBonus joinBonus = new JoinBonus(user);
+
+        //when
+        long amount = joinBonus.getAmount();
+
+        //then
+        assertThat(amount).isEqualTo(1_000);
+    }
 }

@@ -25,13 +25,15 @@ public class ReviewTest {
     @Test
     void reviewWrite로_객체를_생성할_수_있다() {
         //given
+        LocalDate testDate = LocalDate.now();
+
         User writer = User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
-                .modifiedAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .createdAt(ClockUtil.toMillis(testDate.atStartOfDay()))
+                .modifiedAt(ClockUtil.toMillis(testDate.atStartOfDay()))
                 .build();
 
         Order order = Order.builder()
@@ -41,11 +43,11 @@ public class ReviewTest {
                         .id(1L)
                         .name("자바의 신")
                         .price(20_000)
-                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .createdAt(testDate.atStartOfDay())
                         .build())
                 .amount(20_000)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(testDate.atStartOfDay())
+                .modifiedAt(testDate.atStartOfDay())
                 .status(OrderStatus.ORDERED)
                 .build();
 
@@ -68,13 +70,15 @@ public class ReviewTest {
 
     @Test
     void 구매자와_리뷰작성자가_동일유저가_아니라면_예외를_던진다() {
+        LocalDate testDate = LocalDate.now().minusDays(3);
+
         User writer = User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
-                .modifiedAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .createdAt(ClockUtil.toMillis(testDate.atStartOfDay()))
+                .modifiedAt(ClockUtil.toMillis(testDate.atStartOfDay()))
                 .build();
 
         Order order = Order.builder()
@@ -84,18 +88,18 @@ public class ReviewTest {
                         .email("tmfrl4710@naver.com")
                         .nickname("seulki")
                         .status(UserStatus.ACTIVE)
-                        .createdAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
-                        .modifiedAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                        .createdAt(ClockUtil.toMillis(testDate.atStartOfDay()))
+                        .modifiedAt(ClockUtil.toMillis(testDate.atStartOfDay()))
                         .build())
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
                         .price(20_000)
-                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .createdAt(testDate.atStartOfDay())
                         .build())
                 .amount(20_000)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(testDate.atStartOfDay())
+                .modifiedAt(testDate.atStartOfDay())
                 .status(OrderStatus.ORDERED)
                 .build();
 
@@ -111,13 +115,15 @@ public class ReviewTest {
     @NullAndEmptySource
     void 리뷰제목이_빈값이라면_예외를_던진다(String title) {
         //given
+        LocalDate testDate = LocalDate.now();
+
         User writer = User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
-                .modifiedAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .createdAt(ClockUtil.toMillis(testDate.atStartOfDay()))
+                .modifiedAt(ClockUtil.toMillis(testDate.atStartOfDay()))
                 .build();
 
         Order order = Order.builder()
@@ -127,11 +133,11 @@ public class ReviewTest {
                         .id(1L)
                         .name("자바의 신")
                         .price(20_000)
-                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .createdAt(testDate.atStartOfDay())
                         .build())
                 .amount(20_000)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(testDate.atStartOfDay())
+                .modifiedAt(testDate.atStartOfDay())
                 .status(OrderStatus.ORDERED)
                 .build();
 
@@ -167,8 +173,8 @@ public class ReviewTest {
                         .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                         .build())
                 .amount(20_000)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(LocalDate.now().minusDays(3).atStartOfDay())
+                .modifiedAt(LocalDate.now().minusDays(3).atStartOfDay())
                 .status(OrderStatus.ORDERED)
                 .build();
 
@@ -203,8 +209,8 @@ public class ReviewTest {
                         .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                         .build())
                 .amount(20_000)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(LocalDate.now().minusDays(3).atStartOfDay())
+                .modifiedAt(LocalDate.now().minusDays(3).atStartOfDay())
                 .status(OrderStatus.CANCELED)
                 .build();
 

@@ -70,6 +70,7 @@ class ReviewServiceTest {
     @Test
     void ReviewWrite로_리뷰를_저장할_수_있다() {
         //given
+
         User writer = User.builder()
                 .id(2L)
                 .email("tmfrl4710@naver.com")
@@ -89,8 +90,8 @@ class ReviewServiceTest {
                         .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                         .build())
                 .amount(20_000)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(LocalDate.now().minusDays(3).atStartOfDay())
+                .modifiedAt(LocalDate.now().minusDays(3).atStartOfDay())
                 .status(OrderStatus.ORDERED)
                 .build();
 

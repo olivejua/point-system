@@ -28,9 +28,6 @@ public class OrderService {
 
         order = orderRepository.save(order);
 
-        // TODO 포인트 적립
-//        pointService.accrue();
-
         return order;
     }
 

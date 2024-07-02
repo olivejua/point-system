@@ -86,4 +86,26 @@ class ReviewBonusTest {
         //then
         assertThat(result).isFalse();
     }
+
+    @Test
+    void 고정금액_500포인트를_적립금액으로_반환한다() {
+        //given
+        long createdDate = toMillis(LocalDate.now().atStartOfDay());
+        User user = User.builder()
+                .id(1L)
+                .email("tmfrl4710@gmail.com")
+                .nickname("olivejua")
+                .status(UserStatus.ACTIVE)
+                .createdAt(createdDate)
+                .modifiedAt(createdDate)
+                .build();
+
+        ReviewBonus reviewBonus = new ReviewBonus(user);
+
+        //when
+        long amount = reviewBonus.getAmount();
+
+        //then
+        assertThat(amount).isEqualTo(500);
+    }
 }
