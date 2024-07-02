@@ -8,7 +8,6 @@ import dev.olivejua.pointsystem.point.service.port.PointTransactionRepository;
 import dev.olivejua.pointsystem.point.service.port.UserPointRepository;
 import lombok.Builder;
 
-//TODO DateTimeHolder를 ClockHolder로 모두 변경하기
 @Builder
 public class PointService {
     private final PointTransactionRepository pointTransactionRepository;

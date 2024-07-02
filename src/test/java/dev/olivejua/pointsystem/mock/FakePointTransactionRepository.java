@@ -1,5 +1,6 @@
 package dev.olivejua.pointsystem.mock;
 
+import dev.olivejua.pointsystem.point.domain.PointAccrualType;
 import dev.olivejua.pointsystem.point.domain.PointTransaction;
 import dev.olivejua.pointsystem.point.service.port.PointTransactionRepository;
 
@@ -31,5 +32,11 @@ public class FakePointTransactionRepository implements PointTransactionRepositor
             data.add(pointTransaction);
             return pointTransaction;
         }
+    }
+
+    @Override
+    public boolean existsByUserIdAndAccrualType(Long userId, PointAccrualType accrualType) {
+        return data.stream()
+                .anyMatch(item -> item.getUser().getId().equals(userId) && item.getAccrualType() == accrualType);
     }
 }
