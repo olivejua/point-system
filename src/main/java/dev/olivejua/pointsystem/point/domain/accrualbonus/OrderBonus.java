@@ -16,7 +16,7 @@ public class OrderBonus extends AbstractAccrualBonus {
 
     @Override
     public boolean isEligibleUserForPoints(PointTransactionRepository pointTransactionRepository) {
-        return true;
+        return amount > 0;
     }
 
     @Override

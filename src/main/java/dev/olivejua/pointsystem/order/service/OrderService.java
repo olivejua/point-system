@@ -42,9 +42,6 @@ public class OrderService {
         // TODO 사용포인트가 있다면 재적립 (사용주문건)
 //        pointService.reaccrue(order);
 
-        // TODO 적립포인트 회수 (사용주문건)
-//        pointService.reverse(order);
-
         order = order.cancel(dateTimeHolder);
 
         return orderRepository.save(order);

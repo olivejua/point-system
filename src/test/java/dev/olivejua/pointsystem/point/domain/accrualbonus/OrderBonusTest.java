@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class OrderBonusTest {
 
     @Test
-    void 적립대상여부를_검증할때_무조건_true를_반환한다() {
+    void 주문금액이_0원_이상이면_적립대상여부를_검증할때_true를_반환한다() {
         //given
         long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
@@ -47,6 +47,41 @@ class OrderBonusTest {
 
         //then
         assertThat(result).isTrue();
+    }
+
+    @Test
+    void 주문금액이_0원_이상이면_적립대상여부를_검증할때_false를_반환한다() {
+        //given
+        long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
+        Order order = Order.builder()
+                .id(1L)
+                .buyer(User.builder()
+                        .id(1L)
+                        .email("tmfrl4710@gmail.com")
+                        .nickname("olivejua")
+                        .status(UserStatus.ACTIVE)
+                        .createdAt(createdDate)
+                        .modifiedAt(createdDate)
+                        .build())
+                .product(Product.builder()
+                        .id(1L)
+                        .name("자바의 신")
+                        .price(0)
+                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .build())
+                .amount(0)
+                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .status(OrderStatus.ORDERED)
+                .build();
+
+        OrderBonus orderBonus = new OrderBonus(order);
+
+        //when
+        boolean result = orderBonus.isEligibleUserForPoints(null);
+
+        //then
+        assertThat(result).isFalse();
     }
 
     @Test
