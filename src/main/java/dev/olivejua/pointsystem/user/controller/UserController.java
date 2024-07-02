@@ -1,8 +1,8 @@
 package dev.olivejua.pointsystem.user.controller;
 
 import dev.olivejua.pointsystem.common.service.ClockHolder;
-import dev.olivejua.pointsystem.point.service.dto.AttendanceBonus;
-import dev.olivejua.pointsystem.point.service.dto.JoinBonus;
+import dev.olivejua.pointsystem.point.domain.accrualbonus.AttendanceBonus;
+import dev.olivejua.pointsystem.point.domain.accrualbonus.JoinBonus;
 import dev.olivejua.pointsystem.point.service.PointService;
 import dev.olivejua.pointsystem.user.domain.User;
 import dev.olivejua.pointsystem.user.domain.UserCreate;

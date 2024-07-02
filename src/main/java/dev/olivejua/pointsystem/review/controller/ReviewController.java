@@ -1,6 +1,6 @@
 package dev.olivejua.pointsystem.review.controller;
 
-import dev.olivejua.pointsystem.point.service.dto.ReviewBonus;
+import dev.olivejua.pointsystem.point.domain.accrualbonus.ReviewBonus;
 import dev.olivejua.pointsystem.review.domain.Review;
 import dev.olivejua.pointsystem.review.domain.ReviewWrite;
 import dev.olivejua.pointsystem.review.service.ReviewService;

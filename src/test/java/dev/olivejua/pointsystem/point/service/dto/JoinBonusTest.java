@@ -5,6 +5,7 @@ import dev.olivejua.pointsystem.mock.FakePointTransactionRepository;
 import dev.olivejua.pointsystem.point.domain.PointAccrualType;
 import dev.olivejua.pointsystem.point.domain.PointTransaction;
 import dev.olivejua.pointsystem.point.domain.PointTransactionType;
+import dev.olivejua.pointsystem.point.domain.accrualbonus.JoinBonus;
 import dev.olivejua.pointsystem.user.domain.User;
 import dev.olivejua.pointsystem.user.domain.UserStatus;
 import org.junit.jupiter.api.BeforeEach;

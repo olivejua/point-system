@@ -1,4 +1,4 @@
-package dev.olivejua.pointsystem.point.service.dto;
+package dev.olivejua.pointsystem.point.domain.accrualbonus;
 
 import dev.olivejua.pointsystem.common.service.ClockHolder;
 import dev.olivejua.pointsystem.common.util.ClockUtil;

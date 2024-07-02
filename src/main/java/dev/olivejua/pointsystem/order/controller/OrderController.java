@@ -4,7 +4,7 @@ import dev.olivejua.pointsystem.order.domain.Order;
 import dev.olivejua.pointsystem.order.domain.OrderCreate;
 import dev.olivejua.pointsystem.order.service.OrderService;
 import dev.olivejua.pointsystem.point.service.PointService;
-import dev.olivejua.pointsystem.point.service.dto.OrderBonus;
+import dev.olivejua.pointsystem.point.domain.accrualbonus.OrderBonus;
 import lombok.Builder;
 import org.springframework.http.ResponseEntity;
 

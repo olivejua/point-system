@@ -3,7 +3,7 @@ package dev.olivejua.pointsystem.point.service;
 import dev.olivejua.pointsystem.common.service.ClockHolder;
 import dev.olivejua.pointsystem.point.domain.PointTransaction;
 import dev.olivejua.pointsystem.point.domain.UserPoint;
-import dev.olivejua.pointsystem.point.service.dto.AbstractAccrualBonus;
+import dev.olivejua.pointsystem.point.domain.accrualbonus.AbstractAccrualBonus;
 import dev.olivejua.pointsystem.point.service.port.PointTransactionRepository;
 import dev.olivejua.pointsystem.point.service.port.UserPointRepository;
 import lombok.Builder;
