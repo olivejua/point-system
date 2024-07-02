@@ -1,5 +1,6 @@
 package dev.olivejua.pointsystem.user.domain;
 
+import dev.olivejua.pointsystem.common.util.ClockUtil;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -16,8 +17,8 @@ public class UserUpdateTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         UserUpdate userUpdate = new UserUpdate("tmfrl4710@gmail.com", "olivejua");
@@ -37,8 +38,8 @@ public class UserUpdateTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         UserUpdate userUpdate = new UserUpdate("tmfrl4710@naver.com", "olivejua");
@@ -58,8 +59,8 @@ public class UserUpdateTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         UserUpdate userUpdate = new UserUpdate("tmfrl4710@gmail.com", "seulki");

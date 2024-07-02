@@ -2,6 +2,7 @@ package dev.olivejua.pointsystem.review.domain;
 
 import dev.olivejua.pointsystem.common.exception.IllegalStatusException;
 import dev.olivejua.pointsystem.common.exception.InvalidAttributeFormatException;
+import dev.olivejua.pointsystem.common.util.ClockUtil;
 import dev.olivejua.pointsystem.mock.TestDateTimeHolder;
 import dev.olivejua.pointsystem.order.domain.Order;
 import dev.olivejua.pointsystem.order.domain.OrderStatus;
@@ -29,8 +30,8 @@ public class ReviewTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         Order order = Order.builder()
@@ -72,8 +73,8 @@ public class ReviewTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         Order order = Order.builder()
@@ -83,8 +84,8 @@ public class ReviewTest {
                         .email("tmfrl4710@naver.com")
                         .nickname("seulki")
                         .status(UserStatus.ACTIVE)
-                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                        .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                        .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                         .build())
                 .product(Product.builder()
                         .id(1L)
@@ -115,8 +116,8 @@ public class ReviewTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         Order order = Order.builder()
@@ -152,8 +153,8 @@ public class ReviewTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         Order order = Order.builder()
@@ -188,8 +189,8 @@ public class ReviewTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         Order order = Order.builder()

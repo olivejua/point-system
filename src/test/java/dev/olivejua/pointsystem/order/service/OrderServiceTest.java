@@ -2,6 +2,7 @@ package dev.olivejua.pointsystem.order.service;
 
 import dev.olivejua.pointsystem.common.exception.BuyerDoesNotMatchException;
 import dev.olivejua.pointsystem.common.exception.NotFoundResourceException;
+import dev.olivejua.pointsystem.common.util.ClockUtil;
 import dev.olivejua.pointsystem.mock.FakeOrderRepository;
 import dev.olivejua.pointsystem.mock.TestDateTimeHolder;
 import dev.olivejua.pointsystem.order.domain.Order;
@@ -39,8 +40,8 @@ public class OrderServiceTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
         Product product = Product.builder()
                 .id(1L)
@@ -70,14 +71,15 @@ public class OrderServiceTest {
     @Test
     void orderCreate로_주문객체를_저장할_수_있다() {
         //given
+        long createdAt = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
         OrderCreate orderCreate = OrderCreate.builder()
                 .buyer(User.builder()
                         .id(1L)
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")
                         .status(UserStatus.ACTIVE)
-                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                        .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .createdAt(createdAt)
+                        .modifiedAt(createdAt)
                         .build())
                 .product(Product.builder()
                         .id(1L)

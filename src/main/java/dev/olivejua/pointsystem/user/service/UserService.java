@@ -2,7 +2,7 @@ package dev.olivejua.pointsystem.user.service;
 
 import dev.olivejua.pointsystem.common.exception.DuplicateAttributeException;
 import dev.olivejua.pointsystem.common.exception.NotFoundResourceException;
-import dev.olivejua.pointsystem.common.service.DateTimeHolder;
+import dev.olivejua.pointsystem.common.service.ClockHolder;
 import dev.olivejua.pointsystem.user.domain.User;
 import dev.olivejua.pointsystem.user.domain.UserCreate;
 import dev.olivejua.pointsystem.user.domain.UserUpdate;
@@ -12,7 +12,7 @@ import lombok.Builder;
 @Builder
 public class UserService {
     private final UserRepository userRepository;
-    private final DateTimeHolder dateTimeHolder;
+    private final ClockHolder clockHolder;
 
     public User getById(long id) {
         return userRepository.findById(id)
@@ -25,7 +25,7 @@ public class UserService {
             throw new DuplicateAttributeException("유저의 이메일");
         }
 
-        User user = User.from(userCreate, dateTimeHolder);
+        User user = User.from(userCreate, clockHolder);
 
         return userRepository.save(user);
     }
@@ -34,7 +34,7 @@ public class UserService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundResourceException("User"));
 
-        user = user.login(dateTimeHolder);
+        user = user.login(clockHolder);
         userRepository.save(user);
 
         return user;
@@ -44,7 +44,7 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundResourceException("User"));
 
-        user = user.update(userUpdate, dateTimeHolder);
+        user = user.update(userUpdate, clockHolder);
 
         return userRepository.save(user);
     }

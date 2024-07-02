@@ -1,9 +1,11 @@
 package dev.olivejua.pointsystem.user.domain;
 
 import dev.olivejua.pointsystem.common.exception.InvalidAttributeFormatException;
-import dev.olivejua.pointsystem.mock.TestDateTimeHolder;
+import dev.olivejua.pointsystem.common.util.ClockUtil;
+import dev.olivejua.pointsystem.mock.TestClockHolder;
 import org.junit.jupiter.api.Test;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -18,8 +20,8 @@ public class UserTest {
         UserCreate userCreate = new UserCreate("tmfrl4710@gmail.com", "olivejua");
 
         //when
-        LocalDateTime now = LocalDateTime.now();
-        User user = User.from(userCreate, new TestDateTimeHolder(now));
+        long now = Clock.systemUTC().millis();
+        User user = User.from(userCreate, new TestClockHolder(now));
 
         //then
         assertThat(user.getEmail()).isEqualTo("tmfrl4710@gmail.com");
@@ -36,7 +38,7 @@ public class UserTest {
 
         //when
         //then
-        assertThatThrownBy(() -> User.from(userCreate, new TestDateTimeHolder(LocalDateTime.now())))
+        assertThatThrownBy(() -> User.from(userCreate, new TestClockHolder(Clock.systemUTC().millis())))
                 .isInstanceOf(InvalidAttributeFormatException.class)
                 .hasMessage("유저의 이메일 또는 닉네임이(가) 비어있거나 잘못된 형식입니다.");
     }
@@ -48,7 +50,7 @@ public class UserTest {
 
         //when
         //then
-        assertThatThrownBy(() -> User.from(userCreate, new TestDateTimeHolder(LocalDateTime.now())))
+        assertThatThrownBy(() -> User.from(userCreate, new TestClockHolder(Clock.systemUTC().millis())))
                 .isInstanceOf(InvalidAttributeFormatException.class)
                 .hasMessage("유저의 이메일 또는 닉네임이(가) 비어있거나 잘못된 형식입니다.");
     }
@@ -56,40 +58,44 @@ public class UserTest {
     @Test
     void 로그인하면_마지막로그인일시가_업데이트된다() {
         //given
+        long createdAt = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
+        TestClockHolder clockHolderWithCreatedDate = new TestClockHolder(createdAt);
+
         User user = User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(clockHolderWithCreatedDate.millis())
+                .modifiedAt(clockHolderWithCreatedDate.millis())
                 .build();
 
         //when
-        LocalDateTime now = LocalDateTime.now();
-        user = user.login(new TestDateTimeHolder(now));
+        TestClockHolder clockHolderWithNow = new TestClockHolder(ClockUtil.millisFrom(LocalDateTime.now()));
+        user = user.login(clockHolderWithNow);
 
         //then
-        assertThat(user.getLastLoginAt()).isEqualTo(now);
+        assertThat(user.getLastLoginAt()).isEqualTo(clockHolderWithNow.millis());
     }
 
     @Test
     void UserUpdate로_유저정보를_업데이트할_수_있다() {
         //given
+        long createdAt = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
         User user = User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(createdAt)
+                .modifiedAt(createdAt)
                 .build();
 
         UserUpdate userUpdate = new UserUpdate("tmfrl4710@naver.com", "seulki");
 
         //when
-        LocalDateTime now = LocalDateTime.now();
-        user = user.update(userUpdate, new TestDateTimeHolder(now));
+        long now = ClockUtil.millisFrom(LocalDateTime.now());
+        user = user.update(userUpdate, new TestClockHolder(now));
 
         //then
         assertThat(user.getEmail()).isEqualTo(userUpdate.getEmail());
@@ -105,18 +111,17 @@ public class UserTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         UserUpdate userUpdate = new UserUpdate("tmfrl4710@gmail.com", "olivejua");
 
         //when
-        LocalDateTime now = LocalDateTime.now();
-        user = user.update(userUpdate, new TestDateTimeHolder(now));
+        user = user.update(userUpdate, new TestClockHolder(ClockUtil.millisFrom(LocalDateTime.now())));
 
         //then
-        assertThat(user.getModifiedAt()).isEqualTo(LocalDate.of(2024, 6, 1).atStartOfDay());
+        assertThat(user.getModifiedAt()).isEqualTo(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()));
     }
 
     @Test
@@ -127,15 +132,15 @@ public class UserTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         UserUpdate userUpdate = new UserUpdate("tmfrl4710@gmail.com", "123");
 
         //when
         //then
-        assertThatThrownBy(() -> user.update(userUpdate, new TestDateTimeHolder(LocalDateTime.now())))
+        assertThatThrownBy(() -> user.update(userUpdate, new TestClockHolder(ClockUtil.millisFrom(LocalDateTime.now()))))
                 .isInstanceOf(InvalidAttributeFormatException.class)
                 .hasMessage("유저의 이메일 또는 닉네임이(가) 비어있거나 잘못된 형식입니다.");
     }
@@ -148,15 +153,15 @@ public class UserTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         UserUpdate userUpdate = new UserUpdate("tmfrl4710", "olivejua");
 
         //when
         //then
-        assertThatThrownBy(() -> user.update(userUpdate, new TestDateTimeHolder(LocalDateTime.now())))
+        assertThatThrownBy(() -> user.update(userUpdate, new TestClockHolder(ClockUtil.millisFrom(LocalDateTime.now()))))
                 .isInstanceOf(InvalidAttributeFormatException.class)
                 .hasMessage("유저의 이메일 또는 닉네임이(가) 비어있거나 잘못된 형식입니다.");
     }
@@ -169,8 +174,8 @@ public class UserTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         User user2 = User.builder()
@@ -178,8 +183,8 @@ public class UserTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         //when
@@ -195,8 +200,8 @@ public class UserTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         User user2 = User.builder()
@@ -204,8 +209,8 @@ public class UserTest {
                 .email("tmfrl4710@naver.com")
                 .nickname("seulki")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         //when

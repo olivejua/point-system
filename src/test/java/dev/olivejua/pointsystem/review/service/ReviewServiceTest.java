@@ -1,6 +1,7 @@
 package dev.olivejua.pointsystem.review.service;
 
 import dev.olivejua.pointsystem.common.exception.ReviewAlreadyExistsException;
+import dev.olivejua.pointsystem.common.util.ClockUtil;
 import dev.olivejua.pointsystem.mock.FakeReviewRepository;
 import dev.olivejua.pointsystem.mock.TestDateTimeHolder;
 import dev.olivejua.pointsystem.order.domain.Order;
@@ -37,8 +38,8 @@ class ReviewServiceTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
         Order order = Order.builder()
                 .id(1L)
@@ -74,8 +75,8 @@ class ReviewServiceTest {
                 .email("tmfrl4710@naver.com")
                 .nickname("seulki")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         Order order = Order.builder()
@@ -117,8 +118,8 @@ class ReviewServiceTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build();
 
         Order order = Order.builder()

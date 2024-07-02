@@ -1,6 +1,7 @@
 package dev.olivejua.pointsystem.order.domain;
 
 import dev.olivejua.pointsystem.common.exception.IllegalStatusException;
+import dev.olivejua.pointsystem.common.util.ClockUtil;
 import dev.olivejua.pointsystem.mock.TestDateTimeHolder;
 import dev.olivejua.pointsystem.product.domain.Product;
 import dev.olivejua.pointsystem.user.domain.User;
@@ -18,6 +19,8 @@ public class OrderTest {
     @Test
     void Product과_User로_객체를_생성할_수_있다() {
         //given
+        long createdDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
+
         Product product = Product.builder()
                 .id(1L)
                 .name("세이노의 가르침")
@@ -29,8 +32,8 @@ public class OrderTest {
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
                 .status(UserStatus.ACTIVE)
-                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .createdAt(createdDate)
+                .modifiedAt(createdDate)
                 .build();
 
         //when
@@ -51,7 +54,7 @@ public class OrderTest {
     @Test
     void hasSameBuyerAs로_구매자와_취소_요청자와_다른_유저아이디라면_false를_반환한다() {
         //given
-        LocalDateTime createdAt = LocalDate.of(2024, 6, 1).atStartOfDay();
+        long createdDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
                 .buyer(User.builder()
@@ -59,8 +62,8 @@ public class OrderTest {
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")
                         .status(UserStatus.ACTIVE)
-                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                        .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .createdAt(createdDate)
+                        .modifiedAt(createdDate)
                         .build())
                 .product(Product.builder()
                         .id(1L)
@@ -69,8 +72,8 @@ public class OrderTest {
                         .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                         .build())
                 .amount(10_000)
-                .createdAt(createdAt)
-                .modifiedAt(createdAt)
+                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                 .status(OrderStatus.ORDERED)
                 .build();
 
@@ -84,7 +87,7 @@ public class OrderTest {
     @Test
     void hasSameBuyerAs로_구매자와_취소_요청자와_동일한_유저아이디라면_true를_반환한다() {
         //given
-        LocalDateTime createdAt = LocalDate.of(2024, 6, 1).atStartOfDay();
+        long createdDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
                 .buyer(User.builder()
@@ -92,8 +95,8 @@ public class OrderTest {
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")
                         .status(UserStatus.ACTIVE)
-                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                        .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .createdAt(createdDate)
+                        .modifiedAt(createdDate)
                         .build())
                 .product(Product.builder()
                         .id(1L)
@@ -102,8 +105,8 @@ public class OrderTest {
                         .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                         .build())
                 .amount(10_000)
-                .createdAt(createdAt)
-                .modifiedAt(createdAt)
+                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                 .status(OrderStatus.ORDERED)
                 .build();
 
@@ -116,7 +119,7 @@ public class OrderTest {
 
     @Test
     void 주문을_취소할_수_있따() {
-        LocalDateTime createdAt = LocalDate.of(2024, 6, 1).atStartOfDay();
+        long createdDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
                 .buyer(User.builder()
@@ -124,8 +127,8 @@ public class OrderTest {
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")
                         .status(UserStatus.ACTIVE)
-                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                        .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .createdAt(createdDate)
+                        .modifiedAt(createdDate)
                         .build())
                 .product(Product.builder()
                         .id(1L)
@@ -134,8 +137,8 @@ public class OrderTest {
                         .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                         .build())
                 .amount(10_000)
-                .createdAt(createdAt)
-                .modifiedAt(createdAt)
+                .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                 .status(OrderStatus.ORDERED)
                 .build();
 
@@ -151,6 +154,7 @@ public class OrderTest {
     @Test
     void 주문취소요청시_주문이_취소상태이면_예외를_던진다() {
         //given
+        long createdDate = ClockUtil.millisFrom(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
                 .buyer(User.builder()
@@ -158,8 +162,8 @@ public class OrderTest {
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")
                         .status(UserStatus.ACTIVE)
-                        .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
-                        .modifiedAt(LocalDate.of(2024, 6, 1).atStartOfDay())
+                        .createdAt(createdDate)
+                        .modifiedAt(createdDate)
                         .build())
                 .product(Product.builder()
                         .id(1L)

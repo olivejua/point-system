@@ -1,9 +1,7 @@
 package dev.olivejua.pointsystem.user.controller;
 
-import dev.olivejua.pointsystem.mock.FakePointTransactionRepository;
-import dev.olivejua.pointsystem.mock.FakeUserPointRepository;
-import dev.olivejua.pointsystem.mock.FakeUserRepository;
-import dev.olivejua.pointsystem.mock.TestDateTimeHolder;
+import dev.olivejua.pointsystem.common.util.ClockUtil;
+import dev.olivejua.pointsystem.mock.*;
 import dev.olivejua.pointsystem.point.domain.UserPoint;
 import dev.olivejua.pointsystem.point.service.PointService;
 import dev.olivejua.pointsystem.user.domain.User;
@@ -33,7 +31,7 @@ class UserControllerTest {
         userController = UserController.builder()
                 .userService(UserService.builder()
                         .userRepository(new FakeUserRepository())
-                        .dateTimeHolder(new TestDateTimeHolder(LocalDateTime.now()))
+                        .clockHolder(new TestClockHolder(ClockUtil.millisFrom(LocalDateTime.now())))
                         .build())
                 .pointService(PointService.builder()
                         .userPointRepository(fakeUserPointRepository)
