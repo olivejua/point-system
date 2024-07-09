@@ -11,6 +11,8 @@ import dev.olivejua.pointsystem.user.domain.User;
 import lombok.Builder;
 import org.springframework.http.ResponseEntity;
 
+import java.net.URI;
+
 @Builder
 public class OrderController {
     private final OrderCreateService orderCreateService;
@@ -22,7 +24,9 @@ public class OrderController {
         final Order order = orderService.order(orderCreate);
         pointService.accrue(new OrderBonus(order));
 
-        return ResponseEntity.ok(order);
+        return ResponseEntity
+                .created(URI.create("http://localhost:8080/order/" + order.getId()))
+                .body(order);
     }
 
     public ResponseEntity<Order> cancel(long orderId, User user) {

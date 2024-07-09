@@ -2,6 +2,7 @@ package dev.olivejua.pointsystem.user.controller;
 
 import dev.olivejua.pointsystem.common.util.ClockUtil;
 import dev.olivejua.pointsystem.mock.TestContainer;
+import dev.olivejua.pointsystem.point.domain.PointAccrualType;
 import dev.olivejua.pointsystem.point.domain.UserPoint;
 import dev.olivejua.pointsystem.user.domain.User;
 import dev.olivejua.pointsystem.user.domain.UserCreate;
@@ -32,7 +33,7 @@ class UserControllerTest {
         ResponseEntity<User> result = testContainer.userController.join(userCreate);
 
         //then
-        assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(201));
         assertThat(result.getBody()).isNotNull();
         assertThat(result.getBody().getId()).isEqualTo(1);
         assertThat(result.getBody().getEmail()).isEqualTo("tmfrl4710@gmail.com");
@@ -52,9 +53,12 @@ class UserControllerTest {
 
         //when
         ResponseEntity<User> response = testContainer.userController.join(userCreate);
-        User user = response.getBody();
 
         //then
+        assertThat(response.getBody()).isNotNull();
+        User user = response.getBody();
+        assertThat(testContainer.pointTransactionRepository.existsByUserIdAndAccrualType(user.getId(), PointAccrualType.JOIN_BONUS)).isTrue();
+
         Optional<UserPoint> userPoint = testContainer.userPointRepository.findByUserId(user.getId());
         assertThat(userPoint.isPresent()).isTrue();
         assertThat(userPoint.get().getUser().isSameAs(user)).isTrue();
@@ -110,6 +114,8 @@ class UserControllerTest {
         testContainer.userController.login("tmfrl4710@gmail.com");
 
         //then
+        assertThat(testContainer.pointTransactionRepository.existsByUserIdAndAccrualType(1L, PointAccrualType.ATTENDANCE_BONUS)).isTrue();
+
         Optional<UserPoint> userPointOptional = testContainer.userPointRepository.findByUserId(1L);
         assertThat(userPointOptional).isPresent();
         UserPoint userPoint = userPointOptional.get();
