@@ -1,4 +1,4 @@
-package dev.olivejua.pointsystem.review.service;
+package dev.olivejua.pointsystem.order.service;
 
 import dev.olivejua.pointsystem.order.controller.request.OrderCreateRequest;
 import dev.olivejua.pointsystem.order.domain.OrderCreate;

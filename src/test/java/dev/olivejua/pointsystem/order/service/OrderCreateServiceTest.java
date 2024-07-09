@@ -1,4 +1,4 @@
-package dev.olivejua.pointsystem.review.service;
+package dev.olivejua.pointsystem.order.service;
 
 import dev.olivejua.pointsystem.common.util.ClockUtil;
 import dev.olivejua.pointsystem.mock.FakeProductRepository;
