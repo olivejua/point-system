@@ -1,69 +1,61 @@
 package dev.olivejua.pointsystem.user.controller;
 
 import dev.olivejua.pointsystem.common.util.ClockUtil;
-import dev.olivejua.pointsystem.mock.FakePointTransactionRepository;
-import dev.olivejua.pointsystem.mock.FakeUserPointRepository;
-import dev.olivejua.pointsystem.mock.FakeUserRepository;
-import dev.olivejua.pointsystem.mock.TestClockHolder;
+import dev.olivejua.pointsystem.mock.TestContainer;
 import dev.olivejua.pointsystem.point.domain.UserPoint;
-import dev.olivejua.pointsystem.point.service.PointService;
 import dev.olivejua.pointsystem.user.domain.User;
 import dev.olivejua.pointsystem.user.domain.UserCreate;
-import dev.olivejua.pointsystem.user.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
+import dev.olivejua.pointsystem.user.domain.UserStatus;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 import java.time.Clock;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class UserControllerTest {
-    private UserController userController;
-    private FakeUserPointRepository fakeUserPointRepository;
-
     private long now = Clock.systemDefaultZone().millis();
-    private long millis = Clock.systemUTC().millis();
-
-    @BeforeEach
-    void setUp() {
-        fakeUserPointRepository = new FakeUserPointRepository();
-
-        userController = UserController.builder()
-                .userService(UserService.builder()
-                        .userRepository(new FakeUserRepository())
-                        .clockHolder(new TestClockHolder(ClockUtil.toMillis(LocalDateTime.now())))
-                        .build())
-                .pointService(PointService.builder()
-                        .userPointRepository(fakeUserPointRepository)
-                        .pointTransactionRepository(new FakePointTransactionRepository())
-                        .clockHolder(() -> millis)
-                        .build())
-                .build();
-    }
 
     @Test
     void 사용자는_회원가입할_수_있다() {
         //given
+        TestContainer testContainer = TestContainer.builder()
+                .clockHolder(() -> now)
+                .build();
+
+        UserCreate userCreate = new UserCreate("tmfrl4710@gmail.com", "olivejua");
 
         //when
+        ResponseEntity<User> result = testContainer.userController.join(userCreate);
 
         //then
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+        assertThat(result.getBody()).isNotNull();
+        assertThat(result.getBody().getId()).isEqualTo(1);
+        assertThat(result.getBody().getEmail()).isEqualTo("tmfrl4710@gmail.com");
+        assertThat(result.getBody().getNickname()).isEqualTo("olivejua");
+        assertThat(result.getBody().getStatus()).isEqualTo(UserStatus.ACTIVE);
+        assertThat(result.getBody().getCreatedAt()).isEqualTo(now);
     }
 
     @Test
     void 가입시_회원가입_포인트가_적립된다() {
         //given
+        TestContainer testContainer = TestContainer.builder()
+                .clockHolder(() -> now)
+                .build();
+
         UserCreate userCreate = new UserCreate("tmfrl4710@gmail.com", "olivejua");
 
         //when
-        ResponseEntity<User> response = userController.join(userCreate);
+        ResponseEntity<User> response = testContainer.userController.join(userCreate);
         User user = response.getBody();
 
         //then
-        Optional<UserPoint> userPoint = fakeUserPointRepository.findByUserId(user.getId());
+        Optional<UserPoint> userPoint = testContainer.userPointRepository.findByUserId(user.getId());
         assertThat(userPoint.isPresent()).isTrue();
         assertThat(userPoint.get().getUser().isSameAs(user)).isTrue();
         assertThat(userPoint.get().getAmount()).isEqualTo(1_000);
@@ -72,20 +64,55 @@ class UserControllerTest {
     }
 
     @Test
-    void 사용자는_로그인할_수_있따() {
+    void 사용자는_로그인할_수_있다() {
         //given
+        TestContainer testContainer = TestContainer.builder()
+                .clockHolder(() -> now)
+                .build();
+
+        long createdAt = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
+        testContainer.userRepository.save(User.builder()
+                .id(1L)
+                .email("tmfrl4710@gmail.com")
+                .nickname("olivejua")
+                .status(UserStatus.ACTIVE)
+                .createdAt(createdAt)
+                .modifiedAt(createdAt)
+                .build());
 
         //when
+        ResponseEntity<Void> result = testContainer.userController.login("tmfrl4710@gmail.com");
 
         //then
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
+        assertThat(result.hasBody()).isFalse();
+        assertThat(testContainer.userRepository.getById(1L).getLastLoginAt()).isEqualTo(now);
     }
 
     @Test
     void 로그인시_출석체크_포인트가_적립된다() {
         //given
+        TestContainer testContainer = TestContainer.builder()
+                .clockHolder(() -> now)
+                .build();
+
+        long createdAt = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
+        testContainer.userRepository.save(User.builder()
+                .id(1L)
+                .email("tmfrl4710@gmail.com")
+                .nickname("olivejua")
+                .status(UserStatus.ACTIVE)
+                .createdAt(createdAt)
+                .modifiedAt(createdAt)
+                .build());
 
         //when
+        testContainer.userController.login("tmfrl4710@gmail.com");
 
         //then
+        Optional<UserPoint> userPointOptional = testContainer.userPointRepository.findByUserId(1L);
+        assertThat(userPointOptional).isPresent();
+        UserPoint userPoint = userPointOptional.get();
+        assertThat(userPoint.getAmount()).isEqualTo(10);
     }
 }

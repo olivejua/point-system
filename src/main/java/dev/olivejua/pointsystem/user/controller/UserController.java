@@ -27,7 +27,7 @@ public class UserController {
         User user = userService.login(email);
         pointService.accrue(new AttendanceBonus(user, clockHolder));
 
-        return ResponseEntity.ok()
+        return ResponseEntity.noContent()
                 .build();
     }
 }
