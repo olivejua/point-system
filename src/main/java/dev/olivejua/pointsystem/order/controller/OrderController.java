@@ -13,9 +13,9 @@ import org.springframework.http.ResponseEntity;
 
 @Builder
 public class OrderController {
+    private final OrderCreateService orderCreateService;
     private final OrderService orderService;
     private final PointService pointService;
-    private final OrderCreateService orderCreateService;
 
     public ResponseEntity<Order> order(OrderCreateRequest request) {
         final OrderCreate orderCreate = orderCreateService.create(request);
