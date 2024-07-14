@@ -70,7 +70,6 @@ class ReviewServiceTest {
     @Test
     void ReviewWrite로_리뷰를_저장할_수_있다() {
         //given
-
         User writer = User.builder()
                 .id(2L)
                 .email("tmfrl4710@naver.com")
