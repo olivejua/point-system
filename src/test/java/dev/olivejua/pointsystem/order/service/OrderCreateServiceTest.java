@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class OrderCreateServiceTest {
     private OrderCreateService orderCreateService;
@@ -68,5 +69,14 @@ class OrderCreateServiceTest {
         assertThat(orderCreate.getBuyer().getEmail()).isEqualTo(user.getEmail());
         assertThat(orderCreate.getBuyer().getNickname()).isEqualTo(user.getNickname());
         assertThat(orderCreate.getPoints()).isEqualTo(1000);
+    }
+
+    @Test
+    void create_파라미터를_null로_전달하면_예외가_발생한다() {
+        //given
+        //when
+        //then
+        assertThatThrownBy(() -> orderCreateService.create(null))
+                .isInstanceOf(NullPointerException.class);
     }
 }

@@ -8,12 +8,16 @@ import dev.olivejua.pointsystem.user.domain.User;
 import dev.olivejua.pointsystem.user.service.UserService;
 import lombok.Builder;
 
+import java.util.Objects;
+
 @Builder
 public class OrderCreateService {
     private final ProductService productService;
     private final UserService userService;
 
     public OrderCreate create(OrderCreateRequest request) {
+        Objects.requireNonNull(request);
+
         Product product = productService.getById(request.productId());
         User buyer = userService.getById(request.buyerId());
 
