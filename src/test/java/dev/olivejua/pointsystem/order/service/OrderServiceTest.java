@@ -124,7 +124,7 @@ public class OrderServiceTest {
         //given
         //when
         //then
-        assertThatThrownBy(() -> orderService.cancel(2, 1))
+        assertThatThrownBy(() -> orderService.cancel(1, 2))
                 .isInstanceOf(NotFoundResourceException.class);
     }
 
@@ -133,7 +133,7 @@ public class OrderServiceTest {
         //given
         //when
         //then
-        assertThatThrownBy(() -> orderService.cancel(1, 2))
+        assertThatThrownBy(() -> orderService.cancel(2, 1))
                 .isInstanceOf(BuyerDoesNotMatchException.class);
     }
 }

@@ -31,7 +31,7 @@ public class OrderService {
         return order;
     }
 
-    public Order cancel(long id, long requestUserId) {
+    public Order cancel(long requestUserId, long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundResourceException("Order"));
 

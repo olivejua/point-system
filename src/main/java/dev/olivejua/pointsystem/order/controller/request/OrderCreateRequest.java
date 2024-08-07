@@ -6,8 +6,6 @@ import javax.validation.constraints.PositiveOrZero;
 public record OrderCreateRequest(
         @NotNull @PositiveOrZero
         long productId,
-        @NotNull @PositiveOrZero
-        long customerId,
         @PositiveOrZero
         long points
 ) {}

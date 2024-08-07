@@ -15,11 +15,12 @@ public class OrderCreateService {
     private final ProductService productService;
     private final UserService userService;
 
-    public OrderCreate create(OrderCreateRequest request) {
+    public OrderCreate create(User customer, OrderCreateRequest request) {
+        Objects.requireNonNull(customer);
         Objects.requireNonNull(request);
 
         Product product = productService.getById(request.productId());
-        User customer = userService.getById(request.customerId());
+        customer = userService.getById(customer.getId());
 
         return OrderCreate.builder()
                 .product(product)

@@ -24,8 +24,15 @@ public class OrderController {
     private final EnvironmentProperties environmentProperties;
     static final String PREFIX_PATH = "orders";
 
-    public ResponseEntity<Order> order(OrderCreateRequest request) {
-        final OrderCreate orderCreate = orderCreateService.create(request);
+    /**
+     * 사용자로부터 상품 주문을 받고, 주문건에 대한 포인트를 적립한다.
+     *
+     * @param request 주문 요청 정보
+     * @param customer 주문 요청자
+     * @return 등록된 주문 정보
+     */
+    public ResponseEntity<Order> order(User customer, OrderCreateRequest request) {
+        final OrderCreate orderCreate = orderCreateService.create(customer, request);
         final Order order = orderService.order(orderCreate);
         pointService.accrue(new OrderBonus(order));
 
@@ -34,8 +41,15 @@ public class OrderController {
                 .body(order);
     }
 
-    public ResponseEntity<Order> cancel(long orderId, User user) {
-        Order order = orderService.cancel(orderId, user.getId());
+    /**
+     * 사용자로부터 상품 취소 요청을 받고, 취소 주문건에 대한 포인트 내역도 취소한다.
+     *
+     * @param orderId 주문 ID
+     * @param customer 취소 요청자
+     * @return 취소 주문정보
+     */
+    public ResponseEntity<Order> cancel(User customer, long orderId) {
+        Order order = orderService.cancel(customer.getId(), orderId);
         // TODO 적립포인트 회수 (사용주문건)
 //        pointService.reverse(order);
 

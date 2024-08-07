@@ -55,10 +55,10 @@ class OrderCreateServiceTest {
                 .modifiedAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
                 .build());
 
-        OrderCreateRequest request = new OrderCreateRequest(product.getId(), user.getId(), 1000);
+        OrderCreateRequest request = new OrderCreateRequest(product.getId(), 1000);
 
         //when
-        OrderCreate orderCreate = orderCreateService.create(request);
+        OrderCreate orderCreate = orderCreateService.create(user, request);
 
         //then
         assertThat(orderCreate).isNotNull();
@@ -76,7 +76,7 @@ class OrderCreateServiceTest {
         //given
         //when
         //then
-        assertThatThrownBy(() -> orderCreateService.create(null))
+        assertThatThrownBy(() -> orderCreateService.create(null, null))
                 .isInstanceOf(NullPointerException.class);
     }
 }

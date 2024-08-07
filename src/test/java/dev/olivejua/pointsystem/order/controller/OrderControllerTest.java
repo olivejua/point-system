@@ -49,10 +49,10 @@ class OrderControllerTest {
                 .modifiedAt(userCreatedAt)
                 .build());
 
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(product.getId(), customer.getId(), 0);
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(product.getId(), 0);
 
         //when
-        ResponseEntity<Order> result = testContainer.orderController.order(orderCreateRequest);
+        ResponseEntity<Order> result = testContainer.orderController.order(customer, orderCreateRequest);
 
         //then
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.CREATED);
@@ -91,10 +91,10 @@ class OrderControllerTest {
 
         final int noPoints = 0;
 
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(product.getId(), customer.getId(), noPoints);
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(product.getId(), noPoints);
 
         //when
-        ResponseEntity<Order> result = testContainer.orderController.order(orderCreateRequest);
+        ResponseEntity<Order> result = testContainer.orderController.order(customer, orderCreateRequest);
 
         //then
         assertThat(testContainer.pointTransactionRepository.existsByUserIdAndAccrualType(customer.getId(), PointAccrualType.ORDER_BONUS)).isTrue();
