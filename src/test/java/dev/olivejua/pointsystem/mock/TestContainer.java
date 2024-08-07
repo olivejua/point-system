@@ -1,5 +1,6 @@
 package dev.olivejua.pointsystem.mock;
 
+import dev.olivejua.pointsystem.common.infrastructure.properties.EnvironmentProperties;
 import dev.olivejua.pointsystem.common.service.ClockHolder;
 import dev.olivejua.pointsystem.common.service.DateTimeHolder;
 import dev.olivejua.pointsystem.order.controller.OrderController;
@@ -17,6 +18,8 @@ import dev.olivejua.pointsystem.user.service.port.UserRepository;
 import lombok.Builder;
 
 public class TestContainer {
+    public final EnvironmentProperties environmentProperties;
+
     public final UserRepository userRepository;
     public final PointTransactionRepository pointTransactionRepository;
     public final UserPointRepository userPointRepository;
@@ -35,6 +38,8 @@ public class TestContainer {
 
     @Builder
     public TestContainer(ClockHolder clockHolder, DateTimeHolder dateTimeHolder) {
+        this.environmentProperties = new EnvironmentProperties();
+
         this.userRepository = new FakeUserRepository();
         this.pointTransactionRepository = new FakePointTransactionRepository();
         this.userPointRepository = new FakeUserPointRepository();
@@ -71,6 +76,7 @@ public class TestContainer {
                 .orderCreateService(orderCreateService)
                 .orderService(orderService)
                 .pointService(pointService)
+                .environmentProperties(environmentProperties)
                 .build();
     }
 }

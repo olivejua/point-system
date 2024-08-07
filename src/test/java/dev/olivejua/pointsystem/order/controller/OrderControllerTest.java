@@ -10,7 +10,7 @@ import dev.olivejua.pointsystem.product.domain.Product;
 import dev.olivejua.pointsystem.user.domain.User;
 import dev.olivejua.pointsystem.user.domain.UserStatus;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.Clock;
@@ -55,7 +55,7 @@ class OrderControllerTest {
         ResponseEntity<Order> result = testContainer.orderController.order(orderCreateRequest);
 
         //then
-        assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(201));
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(result.getBody()).isNotNull();
         assertThat(result.getBody().getId()).isNotNull();
         assertThat(result.getBody().getProduct().getId()).isEqualTo(product.getId());
@@ -89,7 +89,9 @@ class OrderControllerTest {
                 .modifiedAt(userCreatedAt)
                 .build());
 
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(product.getId(), customer.getId(), 0);
+        final int noPoints = 0;
+
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(product.getId(), customer.getId(), noPoints);
 
         //when
         ResponseEntity<Order> result = testContainer.orderController.order(orderCreateRequest);
