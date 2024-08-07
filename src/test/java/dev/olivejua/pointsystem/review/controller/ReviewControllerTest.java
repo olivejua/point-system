@@ -1,33 +1,24 @@
 package dev.olivejua.pointsystem.review.controller;
 
+import dev.olivejua.pointsystem.common.util.ClockUtil;
+import dev.olivejua.pointsystem.mock.TestClockHolder;
+import dev.olivejua.pointsystem.mock.TestContainer;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
 
 public class ReviewControllerTest {
 
-
-//    @Test
-//    void 사용자는_상품리뷰를_작성할_수_있다() {
-//        //given
-//        TestContainer testContainer = TestContainer.builder()
-//                .clockHolder(() -> )
-//                .build();
-//
-//        //when
-//
-//
-//        //then
-//
-//    }
-
-
     @Test
-    void name() {
-        String str1 = "Hello, World!";
-        String str2 = "Hello, World!";
-        String str3 = new String("Hello, World!");
+    void 사용자는_상품리뷰를_작성할_수_있다() {
+        //given
+        TestContainer testContainer = TestContainer.builder()
+                .clockHolder(new TestClockHolder(ClockUtil.toMillis(LocalDateTime.now())))
+                .build();
 
-        System.out.println("str1 == str2: " + (str1 == str2)); // true
-        System.out.println("str1 == str3: " + (str1 == str3)); // false
-        System.out.println("str1.equals(str3): " + str1.equals(str3)); // true
+        //when
+
+        //then
+
     }
 }
