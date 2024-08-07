@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 public class Order {
     private Long id;
-    private User buyer;
+    private User customer;
     private Product product;
     private long amount;
     private OrderStatus status;
@@ -23,7 +23,7 @@ public class Order {
     public static Order from(OrderCreate orderCreate, DateTimeHolder dateTimeHolder) {
         LocalDateTime now = dateTimeHolder.now();
         return Order.builder()
-                .buyer(orderCreate.getBuyer())
+                .customer(orderCreate.getCustomer())
                 .product(orderCreate.getProduct())
                 .amount(orderCreate.getProduct().getPrice())
                 .status(OrderStatus.ORDERED)
@@ -33,7 +33,7 @@ public class Order {
     }
 
     public boolean hasSameBuyerAs(long userId) {
-        return buyer.getId() == userId;
+        return customer.getId() == userId;
     }
 
     public boolean isCanceled() {
@@ -46,7 +46,7 @@ public class Order {
         }
 
         return Order.builder()
-                .buyer(buyer)
+                .customer(customer)
                 .product(product)
                 .amount(product.getPrice())
                 .status(OrderStatus.CANCELED)

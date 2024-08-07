@@ -19,11 +19,11 @@ public class OrderCreateService {
         Objects.requireNonNull(request);
 
         Product product = productService.getById(request.productId());
-        User buyer = userService.getById(request.buyerId());
+        User customer = userService.getById(request.customerId());
 
         return OrderCreate.builder()
                 .product(product)
-                .buyer(buyer)
+                .customer(customer)
                 .points(request.points())
                 .build();
     }

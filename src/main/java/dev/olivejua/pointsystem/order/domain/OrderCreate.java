@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class OrderCreate {
     private final Product product;
-    private final User buyer;
+    private final User customer;
     private final long points;
 
     public boolean hasPointsRedeemed() {

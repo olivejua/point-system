@@ -20,7 +20,7 @@ class OrderBonusTest {
         long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
-                .buyer(User.builder()
+                .customer(User.builder()
                         .id(1L)
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")
@@ -55,7 +55,7 @@ class OrderBonusTest {
         long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
-                .buyer(User.builder()
+                .customer(User.builder()
                         .id(1L)
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")
@@ -90,7 +90,7 @@ class OrderBonusTest {
         long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
-                .buyer(User.builder()
+                .customer(User.builder()
                         .id(1L)
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")

@@ -24,7 +24,7 @@ public class OrderEntity {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
-    private UserEntity buyer;
+    private UserEntity customer;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "product_id")

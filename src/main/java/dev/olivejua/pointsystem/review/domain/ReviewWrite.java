@@ -21,7 +21,7 @@ public class ReviewWrite {
     }
 
     public boolean isSameWriterAsBuyer() {
-        return order.getBuyer().isSameAs(writer);
+        return order.getCustomer().isSameAs(writer);
     }
 
     public long getOrderId() {

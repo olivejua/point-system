@@ -30,7 +30,7 @@ class ReviewWriteTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
@@ -66,7 +66,7 @@ class ReviewWriteTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(User.builder()
+                .customer(User.builder()
                         .id(2L)
                         .email("tmfrl4710@naver.com")
                         .nickname("seulki")
@@ -109,7 +109,7 @@ class ReviewWriteTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
@@ -145,7 +145,7 @@ class ReviewWriteTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
@@ -182,7 +182,7 @@ class ReviewWriteTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
@@ -219,7 +219,7 @@ class ReviewWriteTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
@@ -255,7 +255,7 @@ class ReviewWriteTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")

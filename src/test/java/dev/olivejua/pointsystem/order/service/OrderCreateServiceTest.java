@@ -65,9 +65,9 @@ class OrderCreateServiceTest {
         assertThat(orderCreate.getProduct().getId()).isEqualTo(product.getId());
         assertThat(orderCreate.getProduct().getName()).isEqualTo(product.getName());
         assertThat(orderCreate.getProduct().getPrice()).isEqualTo(product.getPrice());
-        assertThat(orderCreate.getBuyer().getId()).isEqualTo(user.getId());
-        assertThat(orderCreate.getBuyer().getEmail()).isEqualTo(user.getEmail());
-        assertThat(orderCreate.getBuyer().getNickname()).isEqualTo(user.getNickname());
+        assertThat(orderCreate.getCustomer().getId()).isEqualTo(user.getId());
+        assertThat(orderCreate.getCustomer().getEmail()).isEqualTo(user.getEmail());
+        assertThat(orderCreate.getCustomer().getNickname()).isEqualTo(user.getNickname());
         assertThat(orderCreate.getPoints()).isEqualTo(1000);
     }
 

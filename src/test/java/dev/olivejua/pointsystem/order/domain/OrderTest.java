@@ -27,7 +27,7 @@ public class OrderTest {
                 .price(10_000)
                 .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                 .build();
-        User buyer = User.builder()
+        User customer = User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
@@ -40,12 +40,12 @@ public class OrderTest {
         LocalDateTime now = LocalDateTime.now();
         OrderCreate orderCreate = OrderCreate.builder()
                 .product(product)
-                .buyer(buyer)
+                .customer(customer)
                 .build();
         Order order = Order.from(orderCreate, new TestDateTimeHolder(now));
 
         //then
-        assertThat(order.getBuyer()).isEqualTo(buyer);
+        assertThat(order.getCustomer()).isEqualTo(customer);
         assertThat(order.getProduct()).isEqualTo(product);
         assertThat(order.getAmount()).isEqualTo(10_000);
         assertThat(order.getCreatedAt()).isEqualTo(now);
@@ -57,7 +57,7 @@ public class OrderTest {
         long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
-                .buyer(User.builder()
+                .customer(User.builder()
                         .id(1L)
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")
@@ -90,7 +90,7 @@ public class OrderTest {
         long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
-                .buyer(User.builder()
+                .customer(User.builder()
                         .id(1L)
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")
@@ -122,7 +122,7 @@ public class OrderTest {
         long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
-                .buyer(User.builder()
+                .customer(User.builder()
                         .id(1L)
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")
@@ -157,7 +157,7 @@ public class OrderTest {
         long createdDate = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         Order order = Order.builder()
                 .id(1L)
-                .buyer(User.builder()
+                .customer(User.builder()
                         .id(1L)
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")

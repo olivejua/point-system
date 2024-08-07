@@ -40,7 +40,7 @@ class OrderControllerTest {
                 .build());
 
         long userCreatedAt = ClockUtil.toMillis(createdAt);
-        User buyer = testContainer.userRepository.save(User.builder()
+        User customer = testContainer.userRepository.save(User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
@@ -49,7 +49,7 @@ class OrderControllerTest {
                 .modifiedAt(userCreatedAt)
                 .build());
 
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(product.getId(), buyer.getId(), 0);
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(product.getId(), customer.getId(), 0);
 
         //when
         ResponseEntity<Order> result = testContainer.orderController.order(orderCreateRequest);
@@ -59,7 +59,7 @@ class OrderControllerTest {
         assertThat(result.getBody()).isNotNull();
         assertThat(result.getBody().getId()).isNotNull();
         assertThat(result.getBody().getProduct().getId()).isEqualTo(product.getId());
-        assertThat(result.getBody().getBuyer().getId()).isEqualTo(buyer.getId());
+        assertThat(result.getBody().getCustomer().getId()).isEqualTo(customer.getId());
         assertThat(result.getBody().getCreatedAt()).isEqualTo(now);
     }
 
@@ -80,7 +80,7 @@ class OrderControllerTest {
                 .build());
 
         long userCreatedAt = ClockUtil.toMillis(createdAt);
-        User buyer = testContainer.userRepository.save(User.builder()
+        User customer = testContainer.userRepository.save(User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
@@ -89,15 +89,15 @@ class OrderControllerTest {
                 .modifiedAt(userCreatedAt)
                 .build());
 
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(product.getId(), buyer.getId(), 0);
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(product.getId(), customer.getId(), 0);
 
         //when
         ResponseEntity<Order> result = testContainer.orderController.order(orderCreateRequest);
 
         //then
-        assertThat(testContainer.pointTransactionRepository.existsByUserIdAndAccrualType(buyer.getId(), PointAccrualType.ORDER_BONUS)).isTrue();
+        assertThat(testContainer.pointTransactionRepository.existsByUserIdAndAccrualType(customer.getId(), PointAccrualType.ORDER_BONUS)).isTrue();
 
-        Optional<UserPoint> userPoint = testContainer.userPointRepository.findByUserId(buyer.getId());
+        Optional<UserPoint> userPoint = testContainer.userPointRepository.findByUserId(customer.getId());
         assertThat(userPoint.isPresent()).isTrue();
         assertThat(userPoint.get().getAmount()).isEqualTo(1_000);
     }

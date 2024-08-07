@@ -9,7 +9,7 @@ public class OrderBonus extends AbstractAccrualBonus {
     private final long amount;
 
     public OrderBonus(Order order) {
-        super(order.getBuyer(), PointAccrualType.ORDER_BONUS);
+        super(order.getCustomer(), PointAccrualType.ORDER_BONUS);
 
         this.amount = Math.round(order.getAmount() * PERCENTAGE_RATE);
     }
