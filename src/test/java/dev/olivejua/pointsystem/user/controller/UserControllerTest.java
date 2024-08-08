@@ -8,6 +8,7 @@ import dev.olivejua.pointsystem.user.domain.User;
 import dev.olivejua.pointsystem.user.domain.UserCreate;
 import dev.olivejua.pointsystem.user.domain.UserStatus;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
@@ -111,9 +112,11 @@ class UserControllerTest {
                 .build());
 
         //when
-        testContainer.userController.login("tmfrl4710@gmail.com");
+        ResponseEntity<Void> result = testContainer.userController.login("tmfrl4710@gmail.com");
 
         //then
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+
         assertThat(testContainer.pointTransactionRepository.existsByUserIdAndAccrualType(1L, PointAccrualType.ATTENDANCE_BONUS)).isTrue();
 
         Optional<UserPoint> userPointOptional = testContainer.userPointRepository.findByUserId(1L);

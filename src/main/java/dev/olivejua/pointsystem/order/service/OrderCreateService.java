@@ -21,16 +21,10 @@ public class OrderCreateService {
      * @param requestUser 주문 요청자
      * @param request 주문 API 요청 정보
      * @return 주문등록 데이터
+     * @throws InvalidAttributeFormatException 포인트 금액이 음수일 경우 발생한다.
      */
     public OrderCreate create(User requestUser, OrderCreateRequest request) {
-        Objects.requireNonNull(requestUser);
-        Objects.requireNonNull(requestUser.getId());
-        Objects.requireNonNull(request);
-        Objects.requireNonNull(request.productId());
-
-        if (request.hasPointsNegative()) {
-            throw new InvalidAttributeFormatException("포인트");
-        }
+        validateRequest(requestUser, request);
 
         Product product = productService.getById(request.productId());
         User customer = userService.getById(requestUser.getId());
@@ -40,5 +34,16 @@ public class OrderCreateService {
                 .customer(customer)
                 .points(request.points())
                 .build();
+    }
+
+    private void validateRequest(User requestUser, OrderCreateRequest request) {
+        Objects.requireNonNull(requestUser, "RequestUser cannot be null");
+        Objects.requireNonNull(requestUser.getId(), "RequestUser cannot be null");
+        Objects.requireNonNull(request, "OrderCreateRequest cannot be null");
+        Objects.requireNonNull(request.productId(), "Product ID cannot be null");
+
+        if (request.hasPointsNegative()) {
+            throw new InvalidAttributeFormatException("포인트");
+        }
     }
 }
