@@ -1,7 +1,7 @@
 package dev.olivejua.pointsystem.order.controller.request;
 
 public record OrderCreateRequest(
-        long productId,
+        Long productId,
         long points
 ) {
         public boolean hasPointsNegative() {

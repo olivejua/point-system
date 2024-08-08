@@ -18,20 +18,22 @@ public class OrderCreateService {
 
     /**
      * API의 요청정보를 유효성 검증 후 Domain으로 전환한다.
-     * @param customer 주문 요청자
+     * @param requestUser 주문 요청자
      * @param request 주문 API 요청 정보
      * @return 주문등록 데이터
      */
-    public OrderCreate create(User customer, OrderCreateRequest request) {
-        Objects.requireNonNull(customer);
+    public OrderCreate create(User requestUser, OrderCreateRequest request) {
+        Objects.requireNonNull(requestUser);
+        Objects.requireNonNull(requestUser.getId());
         Objects.requireNonNull(request);
+        Objects.requireNonNull(request.productId());
 
         if (request.hasPointsNegative()) {
             throw new InvalidAttributeFormatException("포인트");
         }
 
         Product product = productService.getById(request.productId());
-        customer = userService.getById(customer.getId());
+        User customer = userService.getById(requestUser.getId());
 
         return OrderCreate.builder()
                 .product(product)
