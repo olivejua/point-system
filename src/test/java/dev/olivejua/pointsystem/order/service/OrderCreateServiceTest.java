@@ -72,11 +72,33 @@ class OrderCreateServiceTest {
     }
 
     @Test
-    void create_파라미터를_null로_전달하면_예외가_발생한다() {
+    void orderCreateRequest_파라미터를_null로_전달하면_예외가_발생한다() {
         //given
+        User requestUser = fakeUserRepository.save(User.builder()
+                .id(1L)
+                .email("tmfrl4710@gmail.com")
+                .nickname("olivejua")
+                .status(UserStatus.ACTIVE)
+                .createdAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .modifiedAt(ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay()))
+                .build());
+
         //when
         //then
-        assertThatThrownBy(() -> orderCreateService.create(null, null))
-                .isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> orderCreateService.create(requestUser, null))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("OrderCreateRequest cannot be null");
+    }
+
+    @Test
+    void requestUser_파라미터를_null로_전달하면_예외가_발생한다() {
+        //given
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(1L, 0);
+
+        //when
+        //then
+        assertThatThrownBy(() -> orderCreateService.create(null, orderCreateRequest))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage("RequestUser cannot be null");
     }
 }
