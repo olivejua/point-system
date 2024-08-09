@@ -43,7 +43,7 @@ class ReviewServiceTest {
                 .build();
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
@@ -70,7 +70,6 @@ class ReviewServiceTest {
     @Test
     void ReviewWrite로_리뷰를_저장할_수_있다() {
         //given
-
         User writer = User.builder()
                 .id(2L)
                 .email("tmfrl4710@naver.com")
@@ -82,7 +81,7 @@ class ReviewServiceTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
@@ -125,7 +124,7 @@ class ReviewServiceTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")

@@ -22,7 +22,7 @@ public class OrderService {
         Order order = Order.from(orderCreate, dateTimeHolder);
 
         if (orderCreate.hasPointsRedeemed()) {
-//            Points myPoints = pointService.redeem(buyer.getId(), orderCreate.getPoints());
+//            Points myPoints = pointService.redeem(customer.getId(), orderCreate.getPoints());
 //            order = order.deductAmount(myPoints);
         }
 
@@ -31,7 +31,7 @@ public class OrderService {
         return order;
     }
 
-    public Order cancel(long id, long requestUserId) {
+    public Order cancel(long requestUserId, long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundResourceException("Order"));
 

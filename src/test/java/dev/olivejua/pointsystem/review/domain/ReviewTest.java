@@ -38,7 +38,7 @@ public class ReviewTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
@@ -83,7 +83,7 @@ public class ReviewTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(User.builder()
+                .customer(User.builder()
                         .id(2L)
                         .email("tmfrl4710@naver.com")
                         .nickname("seulki")
@@ -128,7 +128,7 @@ public class ReviewTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
@@ -165,7 +165,7 @@ public class ReviewTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
@@ -201,7 +201,7 @@ public class ReviewTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")
@@ -239,7 +239,7 @@ public class ReviewTest {
 
         Order order = Order.builder()
                 .id(1L)
-                .buyer(writer)
+                .customer(writer)
                 .product(Product.builder()
                         .id(1L)
                         .name("자바의 신")

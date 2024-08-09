@@ -35,7 +35,7 @@ public class OrderServiceTest {
                 .dateTimeHolder(new TestDateTimeHolder(now))
                 .build();
 
-        User buyer = User.builder()
+        User customer = User.builder()
                 .id(1L)
                 .email("tmfrl4710@gmail.com")
                 .nickname("olivejua")
@@ -50,7 +50,7 @@ public class OrderServiceTest {
                 .createdAt(LocalDate.of(2024, 6, 1).atStartOfDay())
                 .build();
         orderRepository.save(Order.builder()
-                .buyer(buyer)
+                .customer(customer)
                 .product(product)
                 .amount(product.getPrice())
                 .status(OrderStatus.ORDERED)
@@ -73,7 +73,7 @@ public class OrderServiceTest {
         //given
         long createdAt = ClockUtil.toMillis(LocalDate.of(2024, 6, 1).atStartOfDay());
         OrderCreate orderCreate = OrderCreate.builder()
-                .buyer(User.builder()
+                .customer(User.builder()
                         .id(1L)
                         .email("tmfrl4710@gmail.com")
                         .nickname("olivejua")
@@ -96,7 +96,7 @@ public class OrderServiceTest {
         //then
         assertThat(order.getId()).isEqualTo(2);
         assertThat(order.getProduct().getId()).isEqualTo(1);
-        assertThat(order.getBuyer().getId()).isEqualTo(1);
+        assertThat(order.getCustomer().getId()).isEqualTo(1);
         assertThat(order.getStatus()).isEqualTo(OrderStatus.ORDERED);
         assertThat(order.getCreatedAt()).isEqualTo(now);
     }
@@ -124,7 +124,7 @@ public class OrderServiceTest {
         //given
         //when
         //then
-        assertThatThrownBy(() -> orderService.cancel(2, 1))
+        assertThatThrownBy(() -> orderService.cancel(1, 2))
                 .isInstanceOf(NotFoundResourceException.class);
     }
 
@@ -133,7 +133,7 @@ public class OrderServiceTest {
         //given
         //when
         //then
-        assertThatThrownBy(() -> orderService.cancel(1, 2))
+        assertThatThrownBy(() -> orderService.cancel(2, 1))
                 .isInstanceOf(BuyerDoesNotMatchException.class);
     }
 }

@@ -10,6 +10,8 @@ import dev.olivejua.pointsystem.user.service.UserService;
 import lombok.Builder;
 import org.springframework.http.ResponseEntity;
 
+import java.net.URI;
+
 @Builder
 public class UserController {
     private final UserService userService;
@@ -20,14 +22,16 @@ public class UserController {
         User user = userService.join(userCreate);
         pointService.accrue(new JoinBonus(user));
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity
+                .created(URI.create("http://localhost:8080/users/" + user.getId()))
+                .body(user);
     }
 
     public ResponseEntity<Void> login(String email) {
         User user = userService.login(email);
         pointService.accrue(new AttendanceBonus(user, clockHolder));
 
-        return ResponseEntity.ok()
+        return ResponseEntity.noContent()
                 .build();
     }
 }
